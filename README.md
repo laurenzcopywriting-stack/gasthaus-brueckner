@@ -133,11 +133,11 @@ Daumen ist.
 
 ## Vor dem Livegang
 
-1. **Telefonnummer, Adresse, E-Mail, Facebook** ersetzen. Sie stehen an
-   mehreren Stellen: in `index.html` (Kopfzeile, Aufmacher, Schnellinfo,
-   Kartenfuß, Banner, Kontakt, feste Leiste, JSON-LD), in `impressum.html`
-   und in `datenschutz.html`. Suchen nach `0000 000000` und
-   `Straße und Hausnummer` findet alle.
+1. ~~Telefonnummer~~ — steht: **09574 653482**, an allen elf Stellen
+   inklusive `tel:`-Fassung (`+499574653482`) und strukturierten Daten.
+   **Adresse, E-Mail und Facebook fehlen noch.** Suchen nach
+   `Straße und Hausnummer` und `post@gasthaus-brueckner.de` findet alle
+   Stellen in `index.html`, `impressum.html` und `datenschutz.html`.
 2. **Öffnungszeiten prüfen** — sie sind geraten. Sie stehen in `index.html`
    (Schnellinfo, Tabelle, JSON-LD) und in `script.js` (`ZEITEN`).
 3. **Impressum ausfüllen.** Für eine gewerbliche Seite ist es Pflicht (§ 5

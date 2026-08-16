@@ -14,9 +14,9 @@
       ENTWURFSFASSUNG — nicht indexieren.
 
       Die Seite ist öffentlich erreichbar, damit man sie herzeigen kann. Sie
-      soll aber nicht in der Google-Suche auftauchen: die Kontaktdaten sind
-      noch Platzhalter, und eine nicht beauftragte Seite, die unter dem Namen
-      eines echten Betriebs rankt, schickt Gäste ins Leere.
+      soll aber nicht in der Google-Suche auftauchen, solange die Adresse ein
+      Platzhalter ist und das Impressum fehlt — eine Seite, die unter dem
+      Namen eines echten Betriebs rankt, muss stimmen.
 
       Vor dem echten Livegang: diese Zeile löschen (und robots.txt anpassen).
     -->
@@ -45,8 +45,9 @@
       Strukturierte Daten für Google. Damit erscheinen Öffnungszeiten und
       Telefonnummer direkt im Suchergebnis, statt dass jemand erst die Seite
       öffnen muss.
-      ACHTUNG: Adresse und Telefon sind noch Platzhalter — vor dem Livegang
-      hier UND in script.js (BETRIEB) ersetzen.
+      Telefon steht. ACHTUNG: die Adresse ist noch Platzhalter — Google prüft
+      Name, Adresse und Telefon gegeneinander, eine falsche Adresse schadet
+      hier mehr als gar keine.
     -->
     <script type="application/ld+json">
       {
@@ -55,7 +56,7 @@
         "name": "Gasthaus Brückner",
         "servesCuisine": "Fränkisch",
         "priceRange": "€€",
-        "telephone": "+49-0000-000000",
+        "telephone": "+49-9574-653482",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Straße und Hausnummer",
@@ -111,7 +112,7 @@
           <a href="#biergarten">Biergarten</a>
           <a href="#bilder">Bilder</a>
           <a href="#kontakt">Kontakt</a>
-          <a class="knopf knopf--voll knopf--klein" href="tel:+490000000000">
+          <a class="knopf knopf--voll knopf--klein" href="tel:+499574653482">
             <span aria-hidden="true">✆</span> Reservieren
           </a>
         </nav>
@@ -145,11 +146,11 @@
           </p>
 
           <div class="buehne__knoepfe" data-auf>
-            <a class="knopf knopf--voll knopf--gross" href="tel:+490000000000">
+            <a class="knopf knopf--voll knopf--gross" href="tel:+499574653482">
               <span aria-hidden="true">✆</span>
               <span>
                 <span class="knopf__zeile">Tisch reservieren</span>
-                <strong class="knopf__nummer">0000 000000</strong>
+                <strong class="knopf__nummer">09574 653482</strong>
               </span>
             </a>
             <a class="knopf knopf--rand knopf--gross" href="#mittagstisch">
@@ -175,7 +176,7 @@
           <div class="info">
             <h2 class="info__titel">Reservierung</h2>
             <p class="info__gross">
-              <a href="tel:+490000000000">0000 000000</a>
+              <a href="tel:+499574653482">09574 653482</a>
             </p>
             <p class="info__klein">
               Am liebsten telefonisch — dann wissen wir gleich, wie viele Sie sind
@@ -378,8 +379,8 @@
                 <p class="gang__text">
                   Sonn- und Feiertage sind schnell voll. Ein Anruf reicht.
                 </p>
-                <a class="knopf knopf--voll" href="tel:+490000000000">
-                  <span aria-hidden="true">✆</span> 0000 000000
+                <a class="knopf knopf--voll" href="tel:+499574653482">
+                  <span aria-hidden="true">✆</span> 09574 653482
                 </a>
               </article>
             </div>
@@ -402,7 +403,7 @@
           <div class="karte__hinweise">
             <p><strong>Stand der Preise: 31.07.</strong> Der Mittagstisch wechselt täglich; maßgeblich ist der Aushang am Haus.</p>
             <p>Angaben zu Zusatzstoffen und Allergenen erhalten Sie auf Nachfrage bei unserem Personal.</p>
-            <a class="knopf knopf--voll" href="tel:+490000000000">
+            <a class="knopf knopf--voll" href="tel:+499574653482">
               <span aria-hidden="true">✆</span> Tisch reservieren
             </a>
           </div>
@@ -421,7 +422,7 @@
           <p class="banner__klein">
             Am besten vorher kurz anrufen, damit das Fass angestochen ist.
           </p>
-          <a class="knopf knopf--hell" href="tel:+490000000000">
+          <a class="knopf knopf--hell" href="tel:+499574653482">
             <span aria-hidden="true">✆</span> Anrufen
           </a>
         </div>
@@ -503,11 +504,11 @@
         <div class="kontakt" data-staffel="110">
           <div class="kontakt__block">
             <h3>Reservierung</h3>
-            <a class="knopf knopf--hell knopf--gross" href="tel:+490000000000">
+            <a class="knopf knopf--hell knopf--gross" href="tel:+499574653482">
               <span aria-hidden="true">✆</span>
               <span>
                 <span class="knopf__zeile">Jetzt anrufen</span>
-                <strong class="knopf__nummer">0000 000000</strong>
+                <strong class="knopf__nummer">09574 653482</strong>
               </span>
             </a>
             <p class="kontakt__zeile">
@@ -568,7 +569,7 @@
 
     <!-- Feste Leiste unten, nur auf dem Handy: dort ist der Daumen. -->
     <div class="rufleiste">
-      <a class="knopf knopf--voll" href="tel:+490000000000">
+      <a class="knopf knopf--voll" href="tel:+499574653482">
         <span aria-hidden="true">✆</span> Tisch reservieren
       </a>
     </div>
