@@ -192,6 +192,18 @@
               Parkplätze direkt am Haus.
             </p>
           </div>
+
+          <!-- Steht bewusst so weit oben: es ist die Information, wegen der
+               sonst jemand am Tisch sitzt und erst beim Zahlen merkt, dass
+               er zum Automaten muss. In den Rezensionen wird genau das
+               mehrfach erwähnt. -->
+          <div class="info">
+            <h2 class="info__titel">Bezahlung</h2>
+            <p class="info__gross">Nur bar</p>
+            <p class="info__klein">
+              Wir nehmen keine Karten — bitte Bargeld mitbringen.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -219,7 +231,8 @@
             <ul class="merkmale">
               <li>Biergarten auf zwei Ebenen, überdachte Plätze</li>
               <li>Leikeim vom Fass, Merkendorfer Lagerbier zum Mitnehmen</li>
-              <li>Gesellschaften und Feiern nach Absprache</li>
+              <li>Saal für Gesellschaften und Feiern nach Absprache</li>
+              <li>Familien willkommen — im Biergarten ist Platz</li>
             </ul>
           </div>
 
@@ -428,6 +441,49 @@
         </div>
       </section>
 
+      <!-- ---------- Stimmen ----------
+        Bewusst OHNE wörtliche Zitate. Die Rezensionen lagen nur in Googles
+        Rückübersetzung ins Englische vor; daraus deutsche Zitate zu bauen
+        hieße, echten Menschen einen Wortlaut zuzuschreiben, den sie nie
+        geschrieben haben. Was hier steht, ist die Gesamtwertung und das,
+        was sich durch die Rezensionen zieht — nachprüfbar über den Link.
+
+        Ebenfalls bewusst NICHT gemacht: aggregateRating in den
+        strukturierten Daten. Google untersagt es, fremde Bewertungen im
+        eigenen Markup auszuzeichnen; die Sterne kämen ohnehin direkt aus
+        dem Google-Eintrag.
+      -->
+      <section class="stimmen" aria-labelledby="stimmen-titel">
+        <div class="stimmen__innen">
+          <div class="stimmen__wertung">
+            <p class="sterne" aria-hidden="true">★★★★<span class="sterne--halb">★</span></p>
+            <p class="stimmen__zahl">
+              <strong>4,5</strong> von 5
+            </p>
+            <p class="stimmen__quelle">aus 235 Google-Rezensionen</p>
+          </div>
+
+          <div class="stimmen__text">
+            <p class="kicker" data-auf>Was Gäste sagen</p>
+            <h2 id="stimmen-titel" data-worte>Wie bei der Oma, zum fairen Preis.</h2>
+            <p data-auf>
+              Das ist der Satz, der in den Rezensionen am häufigsten in
+              Abwandlungen vorkommt. Daneben immer wieder: der Biergarten, die
+              Portionen, die schnelle und freundliche Bedienung — und dass man
+              zu Stoßzeiten etwas Geduld mitbringen sollte.
+            </p>
+            <a
+              class="knopf knopf--rand"
+              href="https://www.google.com/search?q=Gasthaus+Br%C3%BCckner+Rezensionen"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Rezensionen bei Google lesen
+            </a>
+          </div>
+        </div>
+      </section>
+
       <!-- ---------- Bilder ---------- -->
       <section class="abschnitt" id="bilder">
         <div class="abschnitt__kopf">
@@ -435,9 +491,19 @@
           <h2 data-worte>Ein Blick in den Hof.</h2>
         </div>
 
-        <!-- Jedes Bild ist ein Knopf, der die große Ansicht öffnet.
-             Als <button>, nicht als <div>: so ist es mit Tastatur erreichbar
-             und wird als bedienbar angesagt. -->
+        <!--
+          Slideshow. Die Spur ist eine ganz normale, seitwärts scrollbare
+          Liste mit scroll-snap — dadurch funktioniert sie auf dem Handy per
+          Wischen und ohne JavaScript, und die Knöpfe sind nur die Bedienung
+          mit der Maus. Jedes Bild ist zusätzlich ein <button>, der die große
+          Ansicht öffnet: so ist es auch mit der Tastatur erreichbar.
+        -->
+        <div class="schau">
+          <div class="schau__leiste">
+            <button class="schau__pfeil" type="button" data-richtung="-1" aria-label="Vorheriges Bild">‹</button>
+            <button class="schau__pfeil" type="button" data-richtung="1" aria-label="Nächstes Bild">›</button>
+          </div>
+
         <ul class="galerie" data-staffel="70">
           <li>
             <button class="galerie__knopf" type="button" data-gross="bilder/terrasse-treppe.jpg">
@@ -488,6 +554,7 @@
             </button>
           </li>
         </ul>
+        </div>
       </section>
 
       <!-- ---------- Kontakt ---------- -->
@@ -540,7 +607,7 @@
             </address>
             <a
               class="knopf knopf--rand-hell"
-              href="https://www.google.com/maps/search/?api=1&amp;query=Gasthaus%20Br%C3%BCckner"
+              href="https://www.google.com/maps/search/?api=1&amp;query=50.1339765%2C11.156229"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -550,6 +617,30 @@
               <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
                 Bei Facebook
               </a>
+            </p>
+          </div>
+        </div>
+
+        <!--
+          Die Karte wird erst auf Klick geladen.
+
+          Ein fest eingebundenes <iframe> würde bei JEDEM Seitenaufruf die
+          IP-Adresse des Besuchers an Google übertragen — ungefragt, und
+          damit einwilligungspflichtig. Mit der Klick-Freigabe passiert das
+          erst, wenn jemand die Karte wirklich sehen will. Bis dahin geht
+          nichts nach außen.
+        -->
+        <div class="karte-block">
+          <div class="karte-block__platzhalter" id="karte-platz">
+            <p class="karte-block__text">
+              Die Karte kommt von Google. Beim Laden wird Ihre IP-Adresse an
+              Google übertragen.
+            </p>
+            <button class="knopf knopf--hell" type="button" id="karte-laden">
+              Karte laden
+            </button>
+            <p class="karte-block__klein">
+              Lieber nicht? <a href="https://www.google.com/maps/search/?api=1&amp;query=50.1339765%2C11.156229" target="_blank" rel="noopener noreferrer">Direkt in Google Maps öffnen</a>
             </p>
           </div>
         </div>

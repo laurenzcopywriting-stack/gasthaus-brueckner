@@ -910,13 +910,125 @@ figcaption {
 
 /* ---------- Galerie ---------- */
 
+/* ---------- Stimmen ---------- */
+
+.stimmen {
+  background: var(--papier-warm);
+  border-block: 1px solid var(--linie);
+}
+
+.stimmen__innen {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vh, 5rem) var(--rand);
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+@media (min-width: 48rem) {
+  .stimmen__innen {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+.stimmen__wertung {
+  text-align: center;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--papier);
+  border: 1px solid var(--linie);
+  border-radius: var(--rund);
+  box-shadow: var(--schatten);
+}
+
+.sterne {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  color: var(--messing);
+}
+
+/* Der halbe Stern: derselbe Buchstabe, zur Hälfte in Blassgrau. Ein
+   Halbstern-Zeichen gibt es in der Schrift nicht, und ein Bild dafür
+   wäre eine Datei mehr für vier Pixel Unterschied. */
+.sterne--halb {
+  background: linear-gradient(to right, var(--messing) 50%, var(--linie) 50%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stimmen__zahl {
+  margin: 0.75rem 0 0;
+  font-family: 'Bitter', Georgia, serif;
+  font-size: 1.1rem;
+}
+
+.stimmen__zahl strong {
+  font-size: 2.2rem;
+  display: block;
+  line-height: 1;
+}
+
+.stimmen__quelle {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  color: var(--tinte-weich);
+}
+
+/* ---------- Slideshow ---------- */
+
+.schau {
+  position: relative;
+}
+
+.schau__leiste {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.schau__pfeil {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--linie);
+  border-radius: 50%;
+  background: var(--papier);
+  color: var(--tinte);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.schau__pfeil:hover {
+  border-color: var(--messing);
+  color: var(--messing);
+}
+
+/* Ohne Zeigegerät sind die Pfeile überflüssig — dort wischt man. */
+@media (hover: none) {
+  .schau__leiste {
+    display: none;
+  }
+}
+
 .galerie {
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: grid;
+  padding: 0 0 1rem;
+  display: flex;
   gap: clamp(0.75rem, 2vw, 1.25rem);
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* Damit der Fokusring der Knöpfe nicht abgeschnitten wird. */
+  scroll-padding: 0.25rem;
+  scrollbar-width: thin;
+}
+
+.galerie > li {
+  flex: 0 0 clamp(15rem, 30vw, 22rem);
+  scroll-snap-align: start;
 }
 
 .galerie__knopf {
@@ -1067,6 +1179,51 @@ figcaption {
 .zeiten__zeile--heute dt::before {
   content: '▸ ';
   color: var(--messing-hell);
+}
+
+/* ---------- Karte ---------- */
+
+.karte-block {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  border-radius: var(--rund);
+  overflow: hidden;
+  /* Feste Höhe, damit beim Laden des iframes nichts springt. */
+  min-height: 22rem;
+  display: grid;
+}
+
+.karte-block__platzhalter {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+  background: rgba(250, 246, 238, 0.06);
+  border: 1px dashed rgba(250, 246, 238, 0.3);
+  border-radius: var(--rund);
+}
+
+.karte-block__text {
+  margin: 0;
+  max-width: 34ch;
+  color: rgba(250, 246, 238, 0.8);
+  font-size: 0.92rem;
+}
+
+.karte-block__klein {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(250, 246, 238, 0.6);
+}
+
+.karte-block__rahmen {
+  width: 100%;
+  min-height: 22rem;
+  border: 0;
+  /* Google liefert die Karte hell; das nimmt ihr die Grelle im dunklen
+     Abschnitt, ohne sie unlesbar zu machen. */
+  filter: saturate(0.85) contrast(0.95);
 }
 
 /* ---------- Fuß ---------- */

@@ -29,6 +29,11 @@
   const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)')
   if (ruhig.matches) return
 
+  // Ohne IntersectionObserver würde nichts je eingeblendet — und weil die
+  // Startzustände auf opacity:0 stehen, wäre die halbe Seite unsichtbar.
+  // Dann lieber gar keine Choreografie.
+  if (!('IntersectionObserver' in window)) return
+
   // Ab hier gilt: die Startzustände sind aktiv (Wörter unter der Kante,
   // Blöcke auf Deckkraft 0). Erst jetzt, damit ein Abbruch weiter oben
   // nichts Unsichtbares hinterlässt.
@@ -223,6 +228,21 @@
     anstossen()
   })
 
-    window.__scroll = { durchlauf, passageMessen, zeichnen }
+    /* Rettungsleine.
+     Unsichtbarer Text ist der teuerste Fehler, den diese Seite machen kann:
+     Wer die Speisekarte nicht sieht, ruft nicht an. Sollte der Beobachter aus
+     irgendeinem Grund nicht auslösen — verschachtelte Container, ein Browser
+     mit eigenen Vorstellungen — wird nach sechs Sekunden alles freigegeben,
+     was dann noch versteckt ist. */
+  window.setTimeout(function () {
+    document.querySelectorAll('[data-worte]:not(.ist-da), [data-auf]:not(.ist-da), .auf:not(.ist-da)').forEach(function (el) {
+      const k = el.getBoundingClientRect()
+      // Nur was im oder über dem Sichtfeld liegt — weiter unten soll die
+      // Bewegung ja noch stattfinden.
+      if (k.top < window.innerHeight) el.classList.add('ist-da')
+    })
+  }, 6000)
+
+  window.__scroll = { durchlauf, passageMessen, zeichnen }
   }
 })()

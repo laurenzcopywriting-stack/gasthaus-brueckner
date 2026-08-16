@@ -179,6 +179,57 @@ function lupe() {
   })
 }
 
+/** 5. Slideshow: die Pfeile schieben die Spur um genau eine Kachel weiter. */
+function schau() {
+  const spur = document.querySelector('.schau .galerie')
+  if (!spur) return
+
+  const sanft = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  document.querySelectorAll('.schau__pfeil').forEach((pfeil) => {
+    pfeil.addEventListener('click', () => {
+      const kachel = spur.querySelector('li')
+      if (!kachel) return
+
+      // Breite einer Kachel samt Abstand — so springt die Spur genau um ein
+      // Bild und nicht um einen willkürlichen Pixelwert.
+      const abstand = parseFloat(getComputedStyle(spur).columnGap) || 0
+      const schritt = kachel.getBoundingClientRect().width + abstand
+      const grenze = spur.scrollWidth - spur.clientWidth
+      const ziel = Math.max(
+        0,
+        Math.min(grenze, spur.scrollLeft + schritt * Number(pfeil.dataset.richtung))
+      )
+
+      spur.scrollTo({ left: ziel, behavior: sanft ? 'smooth' : 'auto' })
+    })
+  })
+}
+
+/**
+ * 6. Karte erst auf Klick laden.
+ *
+ * Das <iframe> entsteht erst hier — stünde es im Markup, ginge die
+ * IP-Adresse des Besuchers bei jedem Seitenaufruf an Google.
+ */
+function karte() {
+  const knopf = document.getElementById('karte-laden')
+  const platz = document.getElementById('karte-platz')
+  if (!knopf || !platz) return
+
+  knopf.addEventListener('click', () => {
+    const rahmen = document.createElement('iframe')
+    rahmen.className = 'karte-block__rahmen'
+    rahmen.src =
+      'https://www.google.com/maps?q=50.1339765,11.156229&hl=de&z=17&output=embed'
+    rahmen.title = 'Karte: Lage des Gasthaus Brückner'
+    rahmen.loading = 'lazy'
+    rahmen.referrerPolicy = 'no-referrer-when-downgrade'
+    rahmen.allowFullscreen = true
+    platz.replaceWith(rahmen)
+  })
+}
+
 /** Jahreszahl im Fuß, damit sie nicht jedes Jahr veraltet. */
 function jahr() {
   const el = document.getElementById('jahr')
@@ -188,6 +239,8 @@ function jahr() {
 menue()
 oeffnung()
 lupe()
+schau()
+karte()
 jahr()
 
 // Prüfhaken für die Entwicklung: erlaubt, den Öffnungsstatus für einen
