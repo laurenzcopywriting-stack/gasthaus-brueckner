@@ -1,0 +1,7 @@
+# Entwurfsfassung. Solange die Kontaktdaten Platzhalter sind, soll die Seite
+# nicht in Suchmaschinen auftauchen — sonst schickt sie Gäste ins Leere.
+#
+# Vor dem echten Livegang: die Disallow-Zeile entfernen und das
+# noindex-Meta-Tag aus index.html löschen.
+User-agent: *
+Disallow: /

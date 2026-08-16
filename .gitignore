@@ -1,0 +1,4 @@
+# Zwischenspeicher des Entwicklungsservers. Die Seite selbst braucht ihn
+# nicht — sie hat keinen Build-Schritt.
+.vite/
+node_modules/

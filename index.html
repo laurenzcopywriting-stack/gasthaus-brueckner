@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gasthaus Brückner — Wirtshaus & Biergarten</title>
+    <meta
+      name="description"
+      content="Fränkisches Wirtshaus mit Biergarten unter alter Eiche. Täglich wechselnder Mittagstisch, Braten aus dem Rohr, Leikeim vom Fass. Mittwoch bis Sonntag geöffnet."
+    />
+    <meta name="theme-color" content="#34462f" />
+
+    <!--
+      ENTWURFSFASSUNG — nicht indexieren.
+
+      Die Seite ist öffentlich erreichbar, damit man sie herzeigen kann. Sie
+      soll aber nicht in der Google-Suche auftauchen: die Kontaktdaten sind
+      noch Platzhalter, und eine nicht beauftragte Seite, die unter dem Namen
+      eines echten Betriebs rankt, schickt Gäste ins Leere.
+
+      Vor dem echten Livegang: diese Zeile löschen (und robots.txt anpassen).
+    -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Social Preview. Ohne diese Angaben zeigt WhatsApp beim Teilen nur
+         den nackten Link — bei einem Gasthaus ist das die halbe Wirkung. -->
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:title" content="Gasthaus Brückner — Wirtshaus & Biergarten" />
+    <meta
+      property="og:description"
+      content="Fränkischer Mittagstisch, Biergarten unter alter Eiche, Leikeim vom Fass."
+    />
+    <meta property="og:image" content="bilder/eiche-tag.jpg" />
+    <meta property="og:locale" content="de_DE" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <!--
+      Strukturierte Daten für Google. Damit erscheinen Öffnungszeiten und
+      Telefonnummer direkt im Suchergebnis, statt dass jemand erst die Seite
+      öffnen muss.
+      ACHTUNG: Adresse und Telefon sind noch Platzhalter — vor dem Livegang
+      hier UND in script.js (BETRIEB) ersetzen.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Gasthaus Brückner",
+        "servesCuisine": "Fränkisch",
+        "priceRange": "€€",
+        "telephone": "+49-0000-000000",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Straße und Hausnummer",
+          "postalCode": "PLZ",
+          "addressLocality": "Ort",
+          "addressCountry": "DE"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "11:30",
+            "closes": "23:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Sunday",
+            "opens": "11:30",
+            "closes": "20:00"
+          }
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+    <!-- Wie weit man gekommen ist. Wird von scroll.js gefüllt. -->
+    <div class="fortschritt" aria-hidden="true">
+      <div class="fortschritt__fuellung"></div>
+    </div>
+
+    <header class="kopf" id="kopf">
+      <div class="kopf__innen">
+        <a class="marke" href="#oben">
+          <span class="marke__name">Gasthaus Brückner</span>
+          <span class="marke__zusatz">Wirtshaus &amp; Biergarten</span>
+        </a>
+
+        <button
+          class="nav-schalter"
+          type="button"
+          aria-expanded="false"
+          aria-controls="hauptnav"
+        >
+          <span class="nav-schalter__balken" aria-hidden="true"></span>
+          <span class="nav-schalter__text">Menü</span>
+        </button>
+
+        <nav class="nav" id="hauptnav" aria-label="Hauptnavigation">
+          <a href="#mittagstisch">Mittagstisch</a>
+          <a href="#biergarten">Biergarten</a>
+          <a href="#bilder">Bilder</a>
+          <a href="#kontakt">Kontakt</a>
+          <a class="knopf knopf--voll knopf--klein" href="tel:+490000000000">
+            <span aria-hidden="true">✆</span> Reservieren
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="inhalt">
+      <!-- ---------- Aufmacher ---------- -->
+      <section class="buehne" id="oben">
+        <picture class="buehne__bild" data-parallax="8">
+          <img
+            src="bilder/eiche-tag.jpg"
+            alt="Der Biergarten unter der alten Eiche mit Biertischen und Blumenkästen"
+            width="1440"
+            height="1800"
+            fetchpriority="high"
+          />
+        </picture>
+
+        <div class="buehne__inhalt">
+          <p class="buehne__ort" data-auf>Fränkisches Wirtshaus</p>
+          <h1 data-worte>Biergarten unter der alten Eiche.</h1>
+          <p class="buehne__text" data-auf>
+            Täglich wechselnder Mittagstisch, Braten aus dem Rohr und Leikeim vom
+            Fass. Im Sommer sitzt man draußen, bis es dunkel wird.
+          </p>
+
+          <p class="status" id="status" data-auf hidden>
+            <span class="status__punkt" aria-hidden="true"></span>
+            <span class="status__text"></span>
+          </p>
+
+          <div class="buehne__knoepfe" data-auf>
+            <a class="knopf knopf--voll knopf--gross" href="tel:+490000000000">
+              <span aria-hidden="true">✆</span>
+              <span>
+                <span class="knopf__zeile">Tisch reservieren</span>
+                <strong class="knopf__nummer">0000 000000</strong>
+              </span>
+            </a>
+            <a class="knopf knopf--rand knopf--gross" href="#mittagstisch">
+              Mittagstisch ansehen
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- Schnellinfo ---------- -->
+      <section class="infos" aria-label="Auf einen Blick">
+        <div class="infos__raster" data-staffel="110">
+          <div class="info">
+            <h2 class="info__titel">Geöffnet</h2>
+            <p class="info__gross">Mi – So</p>
+            <p class="info__klein">
+              Mi – Sa 11:30 – 23:00 Uhr<br />
+              So 11:30 – 20:00 Uhr<br />
+              Montag &amp; Dienstag Ruhetag
+            </p>
+          </div>
+
+          <div class="info">
+            <h2 class="info__titel">Reservierung</h2>
+            <p class="info__gross">
+              <a href="tel:+490000000000">0000 000000</a>
+            </p>
+            <p class="info__klein">
+              Am liebsten telefonisch — dann wissen wir gleich, wie viele Sie sind
+              und ob es draußen sein soll.
+            </p>
+          </div>
+
+          <div class="info">
+            <h2 class="info__titel">So finden Sie uns</h2>
+            <p class="info__gross">Straße und Hausnummer</p>
+            <p class="info__klein">
+              PLZ Ort<br />
+              Parkplätze direkt am Haus.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- Das Haus ---------- -->
+      <section class="abschnitt" id="biergarten">
+        <div class="abschnitt__kopf">
+          <p class="kicker" data-auf>Das Haus</p>
+          <h2 data-worte>Der Biergarten wächst um einen Baum herum.</h2>
+        </div>
+
+        <div class="zweispalt">
+          <div class="zweispalt__text">
+            <p>
+              Die alte Eiche steht mitten im Hof. Die Tische verteilen sich auf
+              zwei Ebenen darum herum — unten die Terrasse, oben unter der
+              Pergola. Abends wird der Stamm von unten angestrahlt, und niemand
+              geht mehr freiwillig rein.
+            </p>
+            <p>
+              Drinnen ist Platz für Gesellschaften, draußen für alle anderen. An
+              guten Abenden bringt jemand ein Akkordeon mit, und aus zwei Tischen
+              wird eine Tafel.
+            </p>
+
+            <ul class="merkmale">
+              <li>Biergarten auf zwei Ebenen, überdachte Plätze</li>
+              <li>Leikeim vom Fass, Merkendorfer Lagerbier zum Mitnehmen</li>
+              <li>Gesellschaften und Feiern nach Absprache</li>
+            </ul>
+          </div>
+
+          <figure class="zweispalt__bild" data-auf>
+            <img
+              data-parallax="6"
+              src="bilder/eiche-abend.jpg"
+              alt="Die angestrahlte Eiche im Biergarten bei Nacht"
+              loading="lazy"
+              decoding="async"
+              width="1152"
+              height="2048"
+            />
+            <figcaption>Der Hof, wenn die Küche schon zu ist.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ---------- Mittagstisch ---------- -->
+      <section class="abschnitt abschnitt--hell" id="mittagstisch">
+        <div class="abschnitt__kopf">
+          <p class="kicker" data-auf>Mittagstisch</p>
+          <h2 data-worte>Zehn Gerichte, jeden Tag neu.</h2>
+          <p class="abschnitt__vorspann" data-auf>
+            Auf dem Aushang steht das Datum, darunter die Gerichte des Tages.
+            Braten stehen stundenlang im Rohr — nichts davon kommt schnell auf
+            den Teller.
+          </p>
+        </div>
+
+        <!--
+          Die waagerechte Passage. Der Rahmen ist hoch, die Bühne darin klebt
+          (position: sticky) und scroll.js schiebt die Spur seitwärts. Ohne
+          JavaScript und auf schmalen Bildschirmen stehen dieselben Karten
+          einfach untereinander — die Karte ist dann vollständig lesbar.
+        -->
+        <div class="passage">
+          <div class="passage__buehne">
+            <div class="passage__spur">
+              <article class="gang">
+                <p class="gang__marke">Zum Anfangen</p>
+                <h3>Suppe</h3>
+                <ul class="speisen">
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Leberknödelsuppe</span>
+                    </span>
+                    <span class="speise__preis">3,50 €</span>
+                  </li>
+                </ul>
+              </article>
+
+              <article class="gang gang--breit">
+                <p class="gang__marke">Aus dem Rohr</p>
+                <h3>Braten</h3>
+                <ul class="speisen">
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Wildschweinbraten</span>
+                      <span class="speise__dazu">mit Klößen, Preiselbeeren und Rotkohl</span>
+                    </span>
+                    <span class="speise__preis">13,80 €</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Kalbsrahmbraten</span>
+                      <span class="speise__dazu">mit Klößen und frischem Wirsing</span>
+                    </span>
+                    <span class="speise__preis">12,20 €</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Sauerbraten</span>
+                      <span class="speise__dazu">mit Klößen und Rotkohl</span>
+                    </span>
+                    <span class="speise__preis">11,20 €</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Spießbraten</span>
+                      <span class="speise__dazu">mit Klößen und Salat</span>
+                    </span>
+                    <span class="speise__preis">10,20 €</span>
+                  </li>
+                </ul>
+              </article>
+
+              <!-- Die Spezialität bekommt eine eigene Karte mit Bild: sie ist
+                   der Grund, warum Leute herfahren, und ginge in einer Liste
+                   unter. -->
+              <article class="gang gang--bild">
+                <figure class="gang__figur">
+                  <img
+                    src="bilder/haustaeubchen.jpg"
+                    alt="Haustäubchen mit zwei Klößen, Soße und Wirsing"
+                    loading="lazy"
+                    decoding="async"
+                    width="960"
+                    height="720"
+                  />
+                </figure>
+                <p class="gang__marke">Die Spezialität</p>
+                <h3>Haustäubchen</h3>
+                <p class="gang__text">
+                  Mit Klößen und frischem Wirsing. Das teuerste Gericht der Karte —
+                  und das, wegen dem Leute herfahren.
+                </p>
+                <p class="gang__preis">15,20 €</p>
+              </article>
+
+              <article class="gang gang--breit">
+                <p class="gang__marke">Aus der Pfanne</p>
+                <h3>Schnitzel &amp; Fisch</h3>
+                <ul class="speisen">
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Seelachsfilet „gebacken“</span>
+                      <span class="speise__dazu">mit Kartoffelsalat, Remoulade und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">11,20 €</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Cordon Bleu</span>
+                      <span class="speise__dazu">mit Pommes oder Kartoffelsalat und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">10,80 €</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Schnitzel „Wiener Art“</span>
+                      <span class="speise__dazu">mit Pommes oder Kartoffelsalat und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">9,80 €</span>
+                  </li>
+                </ul>
+              </article>
+
+              <article class="gang">
+                <p class="gang__marke">Zum Schluss</p>
+                <h3>Nachspeise</h3>
+                <ul class="speisen">
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Vanilleeis</span>
+                      <span class="speise__dazu">mit heißen Himbeeren und Sahne</span>
+                    </span>
+                    <span class="speise__preis">4,80 €</span>
+                  </li>
+                </ul>
+              </article>
+
+              <!-- Letzte Karte: hier hat man gerade Appetit. -->
+              <article class="gang gang--ruf">
+                <p class="gang__marke">Und jetzt?</p>
+                <h3>Tisch sichern.</h3>
+                <p class="gang__text">
+                  Sonn- und Feiertage sind schnell voll. Ein Anruf reicht.
+                </p>
+                <a class="knopf knopf--voll" href="tel:+490000000000">
+                  <span aria-hidden="true">✆</span> 0000 000000
+                </a>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="karte__fuss">
+          <figure class="aushang" data-auf>
+            <img
+              src="bilder/mittagstisch-aushang.jpg"
+              alt="Der Aushang mit dem Mittagstisch vom 31.07."
+              loading="lazy"
+              decoding="async"
+              width="1039"
+              height="1500"
+            />
+            <figcaption>Der Aushang am Eingang — hier steht, was heute gilt.</figcaption>
+          </figure>
+
+          <div class="karte__hinweise">
+            <p><strong>Stand der Preise: 31.07.</strong> Der Mittagstisch wechselt täglich; maßgeblich ist der Aushang am Haus.</p>
+            <p>Angaben zu Zusatzstoffen und Allergenen erhalten Sie auf Nachfrage bei unserem Personal.</p>
+            <a class="knopf knopf--voll" href="tel:+490000000000">
+              <span aria-hidden="true">✆</span> Tisch reservieren
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- Bier zum Mitnehmen ---------- -->
+      <section class="banner" aria-labelledby="banner-titel">
+        <div class="banner__innen">
+          <p class="banner__marke" data-auf>Vom Fass</p>
+          <h2 id="banner-titel" data-worte>Merkendorfer Lagerbier zum Mitnehmen.</h2>
+          <p>
+            Leikeim steht ohnehin im Ausschank. Das Merkendorfer Lagerbier gibt es
+            vom Fass — auch für daheim, wenn Sie ein Gefäß mitbringen.
+          </p>
+          <p class="banner__klein">
+            Am besten vorher kurz anrufen, damit das Fass angestochen ist.
+          </p>
+          <a class="knopf knopf--hell" href="tel:+490000000000">
+            <span aria-hidden="true">✆</span> Anrufen
+          </a>
+        </div>
+      </section>
+
+      <!-- ---------- Bilder ---------- -->
+      <section class="abschnitt" id="bilder">
+        <div class="abschnitt__kopf">
+          <p class="kicker" data-auf>Bilder</p>
+          <h2 data-worte>Ein Blick in den Hof.</h2>
+        </div>
+
+        <!-- Jedes Bild ist ein Knopf, der die große Ansicht öffnet.
+             Als <button>, nicht als <div>: so ist es mit Tastatur erreichbar
+             und wird als bedienbar angesagt. -->
+        <ul class="galerie" data-staffel="70">
+          <li>
+            <button class="galerie__knopf" type="button" data-gross="bilder/terrasse-treppe.jpg">
+              <img src="bilder/terrasse-treppe.jpg" alt="Biergartenterrasse mit roten Klapptischen und Treppe" loading="lazy" decoding="async" width="1440" height="810" />
+              <span class="galerie__text">Zwei Ebenen, eine Treppe dazwischen</span>
+            </button>
+          </li>
+          <li>
+            <button class="galerie__knopf" type="button" data-gross="bilder/blumen-terrasse.jpg">
+              <img src="bilder/blumen-terrasse.jpg" alt="Blühende Beete vor Biertischen unter Sonnenschirmen" loading="lazy" decoding="async" width="1200" height="1500" />
+              <span class="galerie__text">Die Beete werden ernst genommen</span>
+            </button>
+          </li>
+          <li>
+            <button class="galerie__knopf" type="button" data-gross="bilder/live-musik.jpg">
+              <img src="bilder/live-musik.jpg" alt="Gäste am Tisch, ein Gast spielt Akkordeon" loading="lazy" decoding="async" width="960" height="540" />
+              <span class="galerie__text">Manchmal bringt jemand ein Akkordeon mit</span>
+            </button>
+          </li>
+          <li>
+            <button class="galerie__knopf" type="button" data-gross="bilder/biergarten-voll.jpg">
+              <img src="bilder/biergarten-voll.jpg" alt="Voll besetzter Biergarten an einem Sommerabend" loading="lazy" decoding="async" width="960" height="540" />
+              <span class="galerie__text">Sommerabend, alles draußen</span>
+            </button>
+          </li>
+          <li>
+            <button class="galerie__knopf" type="button" data-gross="bilder/lange-tafel.jpg">
+              <img src="bilder/lange-tafel.jpg" alt="Lange Tafel mit Gästen und Bierkrügen unter dem Vordach" loading="lazy" decoding="async" width="960" height="540" />
+              <span class="galerie__text">Aus zwei Tischen wird eine Tafel</span>
+            </button>
+          </li>
+          <li>
+            <button class="galerie__knopf" type="button" data-gross="bilder/schirm-bank.jpg">
+              <img src="bilder/schirm-bank.jpg" alt="Biertische unter einem Sonnenschirm im Schatten der Eiche" loading="lazy" decoding="async" width="1152" height="1536" />
+              <span class="galerie__text">Der Schatten reicht für den halben Hof</span>
+            </button>
+          </li>
+          <li>
+            <button class="galerie__knopf" type="button" data-gross="bilder/gaeste-huette.jpg">
+              <img src="bilder/gaeste-huette.jpg" alt="Gäste mit Bierkrügen an einem Tisch vor Holzwand" loading="lazy" decoding="async" width="960" height="540" />
+              <span class="galerie__text">Stammtisch, ohne Schild</span>
+            </button>
+          </li>
+          <li>
+            <button class="galerie__knopf" type="button" data-gross="bilder/haus-eingang.jpg">
+              <img src="bilder/haus-eingang.jpg" alt="Vorderansicht des Gasthauses mit Sonnenschirmen und Blumentrog" loading="lazy" decoding="async" width="1200" height="1200" />
+              <span class="galerie__text">Der Eingang zum Haus</span>
+            </button>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ---------- Kontakt ---------- -->
+      <section class="abschnitt abschnitt--dunkel" id="kontakt">
+        <div class="abschnitt__kopf">
+          <p class="kicker kicker--hell" data-auf>Kontakt</p>
+          <h2 data-worte>Ein Tisch ist noch frei.</h2>
+          <p class="abschnitt__vorspann" data-auf>
+            Reservierungen am liebsten telefonisch — dann wissen wir gleich, wie
+            viele Sie sind und ob es draußen unter der Eiche sein soll.
+          </p>
+        </div>
+
+        <div class="kontakt" data-staffel="110">
+          <div class="kontakt__block">
+            <h3>Reservierung</h3>
+            <a class="knopf knopf--hell knopf--gross" href="tel:+490000000000">
+              <span aria-hidden="true">✆</span>
+              <span>
+                <span class="knopf__zeile">Jetzt anrufen</span>
+                <strong class="knopf__nummer">0000 000000</strong>
+              </span>
+            </a>
+            <p class="kontakt__zeile">
+              <a href="mailto:post@gasthaus-brueckner.de">post@gasthaus-brueckner.de</a>
+            </p>
+          </div>
+
+          <div class="kontakt__block">
+            <h3>Öffnungszeiten</h3>
+            <!-- data-tag: script.js hebt hiermit den heutigen Tag hervor,
+                 ohne dass die Zeiten doppelt gepflegt werden müssen. -->
+            <dl class="zeiten">
+              <div class="zeiten__zeile" data-tag="3"><dt>Mittwoch</dt><dd>11:30 – 23:00</dd></div>
+              <div class="zeiten__zeile" data-tag="4"><dt>Donnerstag</dt><dd>11:30 – 23:00</dd></div>
+              <div class="zeiten__zeile" data-tag="5"><dt>Freitag</dt><dd>11:30 – 23:00</dd></div>
+              <div class="zeiten__zeile" data-tag="6"><dt>Samstag</dt><dd>11:30 – 23:00</dd></div>
+              <div class="zeiten__zeile" data-tag="0"><dt>Sonntag</dt><dd>11:30 – 20:00</dd></div>
+              <div class="zeiten__zeile zeiten__zeile--zu" data-tag="1"><dt>Montag</dt><dd>Ruhetag</dd></div>
+              <div class="zeiten__zeile zeiten__zeile--zu" data-tag="2"><dt>Dienstag</dt><dd>Ruhetag</dd></div>
+            </dl>
+          </div>
+
+          <div class="kontakt__block">
+            <h3>Anfahrt</h3>
+            <address>
+              Gasthaus Brückner<br />
+              Straße und Hausnummer<br />
+              PLZ Ort
+            </address>
+            <a
+              class="knopf knopf--rand-hell"
+              href="https://www.google.com/maps/search/?api=1&amp;query=Gasthaus%20Br%C3%BCckner"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              In Google Maps öffnen
+            </a>
+            <p class="kontakt__zeile">
+              <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                Bei Facebook
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="fuss">
+      <div class="fuss__innen">
+        <p class="fuss__marke">Gasthaus Brückner</p>
+        <nav class="fuss__nav" aria-label="Rechtliches">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </nav>
+        <p class="fuss__klein">© <span id="jahr">2026</span> Gasthaus Brückner</p>
+      </div>
+    </footer>
+
+    <!-- Feste Leiste unten, nur auf dem Handy: dort ist der Daumen. -->
+    <div class="rufleiste">
+      <a class="knopf knopf--voll" href="tel:+490000000000">
+        <span aria-hidden="true">✆</span> Tisch reservieren
+      </a>
+    </div>
+
+    <!-- Große Bildansicht. Steht leer im Markup und wird beim Klick gefüllt. -->
+    <div class="lupe" id="lupe" hidden>
+      <button class="lupe__zu" type="button" aria-label="Ansicht schließen">✕</button>
+      <img class="lupe__bild" src="" alt="" />
+    </div>
+
+    <script src="script.js" defer></script>
+    <script src="scroll.js" defer></script>
+  </body>
+</html>

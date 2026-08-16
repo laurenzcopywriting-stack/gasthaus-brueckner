@@ -1,0 +1,1166 @@
+/* ============================================================
+   Gasthaus Brückner
+   Kein Framework, kein Build. Eine Datei, die man in fünf Jahren
+   noch versteht.
+
+   Typo: Bitter (Überschriften, Slab-Serif — wirtshausnah ohne
+   Kitsch) / Inter (Fließtext)
+   Farben: Laub, Messing, Papier
+   ============================================================ */
+
+:root {
+  --laub: #34462f;
+  --laub-tief: #202b1c;
+  --messing: #a9702a;
+  --messing-hell: #c98d3f;
+  --papier: #faf6ee;
+  --papier-warm: #f2ebdd;
+  --tinte: #1f1a14;
+  --tinte-weich: #5d554a;
+  --linie: #e0d7c5;
+
+  --breite: 74rem;
+  --rand: clamp(1.25rem, 5vw, 3.5rem);
+  --kopfhoehe: 4.5rem;
+
+  --rund: 3px;
+  --schatten: 0 1px 2px rgba(31, 26, 20, 0.05), 0 8px 24px rgba(31, 26, 20, 0.06);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Sprungziele landen sonst unter der festen Kopfzeile. */
+  scroll-padding-top: calc(var(--kopfhoehe) + 1rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--tinte);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 0.97rem + 0.15vw, 1.09rem);
+  line-height: 1.65;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Bitter', Georgia, serif;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 1.4rem + 3.2vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.6rem);
+}
+
+h3 {
+  font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+}
+
+a {
+  color: inherit;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+/* Sichtbarer Fokus überall — die Seite wird auch mit Tastatur bedient. */
+:focus-visible {
+  outline: 3px solid var(--messing);
+  outline-offset: 3px;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--laub);
+  color: var(--papier);
+}
+
+.skip:focus {
+  left: 0;
+}
+
+.kicker {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--messing);
+}
+
+.kicker--hell {
+  color: var(--messing-hell);
+}
+
+/* ---------- Knöpfe ----------
+   Der Anrufknopf trägt Aufforderung UND Nummer. Wer am Telefon steht,
+   soll die Nummer sehen, ohne erst suchen zu müssen. */
+
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.3rem;
+  border: 2px solid transparent;
+  border-radius: var(--rund);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.knopf--voll {
+  background: var(--laub);
+  border-color: var(--laub);
+  color: var(--papier);
+}
+
+.knopf--voll:hover {
+  background: var(--laub-tief);
+  border-color: var(--laub-tief);
+}
+
+.knopf--rand {
+  border-color: var(--laub);
+  color: var(--laub);
+}
+
+.knopf--rand:hover {
+  background: var(--laub);
+  color: var(--papier);
+}
+
+.knopf--hell {
+  background: var(--papier);
+  border-color: var(--papier);
+  color: var(--laub-tief);
+}
+
+.knopf--hell:hover {
+  background: var(--messing-hell);
+  border-color: var(--messing-hell);
+  color: var(--tinte);
+}
+
+.knopf--rand-hell {
+  border-color: rgba(250, 246, 238, 0.45);
+  color: var(--papier);
+}
+
+.knopf--rand-hell:hover {
+  border-color: var(--papier);
+  background: rgba(250, 246, 238, 0.1);
+}
+
+.knopf--gross {
+  padding: 0.95rem 1.6rem;
+  font-size: 1rem;
+}
+
+.knopf--klein {
+  padding: 0.55rem 1rem;
+  font-size: 0.85rem;
+}
+
+.knopf__zeile {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.knopf__nummer {
+  display: block;
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Kopfzeile ---------- */
+
+.kopf {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 246, 238, 0.94);
+  border-bottom: 1px solid var(--linie);
+  backdrop-filter: blur(10px);
+}
+
+.kopf__innen {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: 0 var(--rand);
+  min-height: var(--kopfhoehe);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.marke {
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+.marke__name {
+  display: block;
+  font-family: 'Bitter', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.marke__zusatz {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tinte-weich);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.2vw, 2rem);
+}
+
+.nav > a:not(.knopf) {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.nav > a:not(.knopf):hover {
+  border-bottom-color: var(--messing);
+}
+
+.nav-schalter {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: none;
+  border: 1px solid var(--linie);
+  border-radius: var(--rund);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nav-schalter__balken,
+.nav-schalter__balken::before,
+.nav-schalter__balken::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--tinte);
+}
+
+.nav-schalter__balken {
+  position: relative;
+}
+
+.nav-schalter__balken::before,
+.nav-schalter__balken::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.nav-schalter__balken::before {
+  top: -6px;
+}
+
+.nav-schalter__balken::after {
+  top: 6px;
+}
+
+@media (max-width: 54rem) {
+  .nav-schalter {
+    display: flex;
+  }
+
+  /* Geschlossen heißt display:none, nicht nur unsichtbar — sonst wandert der
+     Tastaturfokus in ein Menü, das niemand sieht.
+     Bewusst über eine Klasse statt über das hidden-Attribut: `hidden` wirkt
+     nur mit der Stärke des Browser-Stylesheets und würde von der
+     display-Regel dieser Klasse überstimmt. Das Menü wäre dann „hidden"
+     und trotzdem sichtbar. */
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.5rem var(--rand) 1.25rem;
+    background: var(--papier);
+    border-bottom: 1px solid var(--linie);
+    box-shadow: var(--schatten);
+  }
+
+  .nav--offen {
+    display: flex;
+  }
+
+  .nav > a:not(.knopf) {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--linie);
+  }
+
+  .nav > .knopf {
+    margin-top: 1rem;
+    justify-content: center;
+  }
+}
+
+/* ---------- Aufmacher ---------- */
+
+.buehne {
+  position: relative;
+  isolation: isolate;
+  min-height: min(84vh, 46rem);
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(3rem, 10vh, 7rem) var(--rand);
+  overflow: hidden;
+}
+
+.buehne__bild {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.buehne__bild img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+/* Zwei Verläufe statt einem flachen Schleier: unten trägt die Schrift,
+   oben bleibt der Baum sichtbar. Ein gleichmäßiger Schleier würde das
+   Bild grau machen, ohne die Lesbarkeit besser zu lösen. */
+.buehne::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+      to top,
+      rgba(20, 27, 17, 0.93) 0%,
+      rgba(20, 27, 17, 0.75) 34%,
+      rgba(20, 27, 17, 0.25) 68%,
+      rgba(20, 27, 17, 0.35) 100%
+    );
+}
+
+.buehne__inhalt {
+  position: relative;
+  max-width: var(--breite);
+  margin: 0 auto;
+  width: 100%;
+  color: var(--papier);
+}
+
+.buehne__ort {
+  margin: 0 0 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--messing-hell);
+}
+
+.buehne h1 {
+  max-width: 16ch;
+  text-shadow: 0 2px 24px rgba(20, 27, 17, 0.5);
+}
+
+.buehne__text {
+  margin: 1.25rem 0 0;
+  max-width: 46ch;
+  color: rgba(250, 246, 238, 0.9);
+}
+
+.buehne__knoepfe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2rem;
+}
+
+/* Der Öffnungsstatus wird von script.js gesetzt. Ohne JavaScript bleibt
+   die Zeile ausgeblendet — die Zeiten stehen ohnehin dreimal auf der Seite. */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 1.5rem 0 0;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(250, 246, 238, 0.13);
+  border: 1px solid rgba(250, 246, 238, 0.25);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.status__punkt {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7bbd6a;
+}
+
+.status--zu .status__punkt {
+  background: #d98b5f;
+}
+
+/* ---------- Schnellinfo ---------- */
+
+.infos {
+  background: var(--laub);
+  color: var(--papier);
+}
+
+.infos__raster {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3rem) var(--rand);
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+
+.info__titel {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--messing-hell);
+  margin-bottom: 0.6rem;
+}
+
+.info__gross {
+  margin: 0 0 0.5rem;
+  font-family: 'Bitter', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.info__gross a {
+  text-decoration: none;
+  border-bottom: 2px solid rgba(201, 141, 63, 0.6);
+}
+
+.info__gross a:hover {
+  border-bottom-color: var(--messing-hell);
+}
+
+.info__klein {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(250, 246, 238, 0.78);
+}
+
+/* ---------- Abschnitte ---------- */
+
+.abschnitt {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 9vh, 6.5rem) var(--rand);
+}
+
+.abschnitt--hell,
+.abschnitt--dunkel {
+  max-width: none;
+}
+
+.abschnitt--hell {
+  background: var(--papier-warm);
+}
+
+.abschnitt--dunkel {
+  background: var(--laub-tief);
+  color: var(--papier);
+}
+
+/* Die Vollbreiten-Abschnitte brauchen innen wieder die Spaltenbreite. */
+.abschnitt--hell > *,
+.abschnitt--dunkel > * {
+  max-width: var(--breite);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.abschnitt__kopf {
+  max-width: 34rem;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.abschnitt__vorspann {
+  margin: 1rem 0 0;
+  color: var(--tinte-weich);
+}
+
+.abschnitt--dunkel .abschnitt__vorspann {
+  color: rgba(250, 246, 238, 0.75);
+}
+
+/* ---------- Zwei Spalten ---------- */
+
+.zweispalt {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+@media (min-width: 54rem) {
+  .zweispalt {
+    grid-template-columns: 1fr 0.85fr;
+  }
+}
+
+.merkmale {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+}
+
+.merkmale li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.merkmale li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 0.7rem;
+  height: 2px;
+  background: var(--messing);
+}
+
+.zweispalt__bild {
+  margin: 0;
+}
+
+.zweispalt__bild img {
+  width: 100%;
+  border-radius: var(--rund);
+  box-shadow: var(--schatten);
+}
+
+figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--tinte-weich);
+}
+
+/* ---------- Scroll-Choreografie ----------
+   Alle Startzustände hängen an .js-anim, das scroll.js selbst setzt.
+   Stünden sie unbedingt hier, wäre die Seite leer, wenn das Skript nicht
+   lädt — oder bei prefers-reduced-motion. */
+
+.fortschritt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 70;
+  background: rgba(31, 26, 20, 0.08);
+}
+
+.fortschritt__fuellung {
+  height: 100%;
+  background: var(--messing);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+/* Ein Wort in seiner Maske. Ohne die Unterlängen-Reserve schneidet der
+   Kasten g, y und ß ab. */
+.maske {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+  margin-right: 0.24em;
+}
+
+.js-anim .maske__wort {
+  display: inline-block;
+  transform: translateY(105%);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.js-anim .ist-da .maske__wort {
+  transform: translateY(0);
+}
+
+.js-anim [data-auf],
+.js-anim .auf {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.js-anim [data-auf].ist-da,
+.js-anim .auf.ist-da {
+  opacity: 1;
+  transform: none;
+}
+
+/* Der Statuskasten wird von script.js per hidden freigeschaltet — die
+   Reveal-Regel darf ihn nicht vorher sichtbar machen. */
+.js-anim .status[hidden] {
+  display: none;
+}
+
+[data-parallax] {
+  will-change: transform;
+}
+
+/* ---------- Waagerechte Passage ----------
+   Die Höhe des Rahmens setzt scroll.js: so weit, wie seitwärts zu fahren
+   ist, so weit muss man scrollen. */
+
+/* Die Passage bricht aus der Spaltenbreite des Abschnitts aus — sie soll
+   über die ganze Fensterbreite fahren, nicht in einer Spalte stecken. */
+.abschnitt--hell > .passage {
+  max-width: none;
+}
+
+.passage__buehne {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.passage__spur {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1rem, 2vw, 2rem);
+  padding-inline: var(--rand);
+  will-change: transform;
+}
+
+.gang {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: clamp(16rem, 24vw, 21rem);
+  padding: 1.75rem;
+  background: var(--papier);
+  border: 1px solid var(--linie);
+  border-radius: var(--rund);
+  box-shadow: var(--schatten);
+}
+
+.gang--breit {
+  width: clamp(18rem, 30vw, 27rem);
+}
+
+.gang--ruf {
+  justify-content: center;
+  border-color: var(--messing);
+  background: #fffaf1;
+}
+
+.gang--ruf .knopf {
+  align-self: flex-start;
+  margin-top: 1.25rem;
+}
+
+.gang__marke {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--messing);
+}
+
+.gang h3 {
+  padding-bottom: 0.7rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--linie);
+}
+
+.gang__figur {
+  margin: 0 0 1.25rem;
+  border-radius: var(--rund);
+  overflow: hidden;
+}
+
+.gang__figur img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.gang__text {
+  font-size: 0.92rem;
+  color: var(--tinte-weich);
+}
+
+.gang__preis {
+  margin: auto 0 0;
+  font-family: 'Bitter', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--messing);
+}
+
+/* Unter 54 rem gibt es keine Passage: die Karten stehen untereinander.
+   Seitwärts scrollen auf dem Handy ist die schlechtere Bedienung, und die
+   feste Rufleiste unten käme der Bühne in die Quere. */
+@media (max-width: 54rem) {
+  .passage {
+    /* Überschreibt die von scroll.js gesetzte Inline-Höhe. */
+    height: auto !important;
+  }
+
+  .passage__buehne {
+    position: static;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+
+  .passage__spur {
+    flex-direction: column;
+    padding-inline: 0;
+    gap: 1.25rem;
+    transform: none !important;
+  }
+
+  .gang,
+  .gang--breit {
+    width: 100%;
+  }
+
+  .gang__preis {
+    margin-top: 1rem;
+  }
+}
+
+/* ---------- Speisekarte ---------- */
+
+.speisen {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.speise {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px dotted var(--linie);
+}
+
+.speise:last-child {
+  border-bottom: 0;
+}
+
+.speise__name {
+  display: block;
+  font-weight: 600;
+}
+
+.speise__dazu {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--tinte-weich);
+  line-height: 1.45;
+}
+
+.speise__preis {
+  flex: 0 0 auto;
+  font-weight: 600;
+  color: var(--messing);
+  /* Hält die Preisspalte in einer Flucht. */
+  font-variant-numeric: tabular-nums;
+}
+
+.karte__fuss {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  padding-top: clamp(2rem, 5vw, 3rem);
+  border-top: 1px solid var(--linie);
+}
+
+@media (min-width: 46rem) {
+  .karte__fuss {
+    grid-template-columns: 0.55fr 1fr;
+  }
+}
+
+.aushang {
+  margin: 0;
+}
+
+.aushang img {
+  width: 100%;
+  border-radius: var(--rund);
+  box-shadow: var(--schatten);
+}
+
+.karte__hinweise p {
+  font-size: 0.9rem;
+  color: var(--tinte-weich);
+}
+
+.karte__hinweise .knopf {
+  margin-top: 0.75rem;
+}
+
+/* ---------- Banner ---------- */
+
+.banner {
+  background: var(--messing);
+  color: #21170a;
+}
+
+.banner__innen {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 4.5rem) var(--rand);
+  max-width: 52rem;
+}
+
+.banner__marke {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.banner h2 {
+  max-width: 20ch;
+  margin-bottom: 1rem;
+}
+
+.banner__klein {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ---------- Galerie ---------- */
+
+.galerie {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+}
+
+.galerie__knopf {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--rund);
+  overflow: hidden;
+  background: var(--papier-warm);
+  cursor: zoom-in;
+  font: inherit;
+  color: inherit;
+}
+
+.galerie__knopf img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.galerie__knopf:hover img {
+  transform: scale(1.04);
+}
+
+.galerie__text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 2.5rem 0.9rem 0.75rem;
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--papier);
+  background: linear-gradient(to top, rgba(20, 27, 17, 0.85), transparent);
+}
+
+/* ---------- Lupe (große Bildansicht) ---------- */
+
+.lupe {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(20, 27, 17, 0.94);
+}
+
+.lupe[hidden] {
+  display: none;
+}
+
+.lupe__bild {
+  max-width: 100%;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: var(--rund);
+}
+
+.lupe__zu {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(250, 246, 238, 0.4);
+  border-radius: 50%;
+  background: none;
+  color: var(--papier);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.lupe__zu:hover {
+  background: rgba(250, 246, 238, 0.12);
+}
+
+/* ---------- Kontakt ---------- */
+
+.kontakt {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+
+.kontakt__block h3 {
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(250, 246, 238, 0.2);
+}
+
+.kontakt__block .knopf {
+  margin-bottom: 1rem;
+}
+
+.kontakt__zeile {
+  margin: 0;
+  font-size: 0.92rem;
+  color: rgba(250, 246, 238, 0.78);
+}
+
+.kontakt address {
+  font-style: normal;
+  margin-bottom: 1.25rem;
+  color: rgba(250, 246, 238, 0.85);
+}
+
+.zeiten {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.zeiten__zeile {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(250, 246, 238, 0.12);
+}
+
+.zeiten__zeile:last-child {
+  border-bottom: 0;
+}
+
+.zeiten dt {
+  color: rgba(250, 246, 238, 0.8);
+}
+
+.zeiten dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.zeiten__zeile--zu {
+  color: rgba(250, 246, 238, 0.45);
+}
+
+/* Der heutige Tag, von script.js gesetzt. */
+.zeiten__zeile--heute {
+  color: var(--papier);
+  font-weight: 600;
+}
+
+.zeiten__zeile--heute dt::before {
+  content: '▸ ';
+  color: var(--messing-hell);
+}
+
+/* ---------- Fuß ---------- */
+
+.fuss {
+  background: var(--laub-tief);
+  color: rgba(250, 246, 238, 0.7);
+  border-top: 1px solid rgba(250, 246, 238, 0.12);
+}
+
+.fuss__innen {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: 2rem var(--rand);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.88rem;
+}
+
+.fuss__marke {
+  margin: 0;
+  font-family: 'Bitter', Georgia, serif;
+  color: var(--papier);
+}
+
+.fuss__nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.fuss__klein {
+  margin: 0;
+}
+
+/* ---------- Rechtstexte ---------- */
+
+.rechtstext {
+  max-width: 46rem;
+}
+
+.rechtstext h3 {
+  margin: 2.5rem 0 0.75rem;
+}
+
+.hinweiskasten {
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  background: var(--papier-warm);
+  border-left: 3px solid var(--messing);
+  border-radius: var(--rund);
+  font-size: 0.95rem;
+}
+
+.rechtstext em {
+  /* Die noch auszufüllenden Stellen sollen ins Auge springen, damit sie
+     nicht versehentlich live gehen. */
+  font-style: normal;
+  background: rgba(169, 112, 42, 0.14);
+  padding: 0.05em 0.35em;
+  border-radius: 2px;
+}
+
+/* ---------- Feste Rufleiste (nur schmal) ---------- */
+
+.rufleiste {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  display: none;
+  padding: 0.7rem 1rem;
+  /* Respektiert die Home-Leiste auf iOS. */
+  padding-bottom: calc(0.7rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(250, 246, 238, 0.96);
+  border-top: 1px solid var(--linie);
+  backdrop-filter: blur(8px);
+}
+
+.rufleiste .knopf {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 54rem) {
+  .rufleiste {
+    display: block;
+  }
+
+  /* Platz, damit die Leiste den Fuß nicht überdeckt. */
+  .fuss__innen {
+    padding-bottom: 5.5rem;
+  }
+}
