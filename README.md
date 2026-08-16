@@ -4,10 +4,33 @@ Statische Website. Drei HTML-Seiten, eine CSS-Datei, eine JS-Datei, ein
 Bilderordner. **Kein Framework, kein Build-Schritt, keine Abhängigkeiten** —
 die Dateien lassen sich so wie sie sind auf jeden Webspace legen.
 
+**Live:** https://laurenzcopywriting-stack.github.io/gasthaus-brueckner/
+
 ```bash
-# Zum Ansehen reicht ein beliebiger statischer Server, z. B.
+# Örtlich ansehen — ein beliebiger statischer Server reicht
 npx --yes vite --port 5176
 ```
+
+## Veröffentlichen
+
+Die Seite liegt auf GitHub Pages, Zweig `main`, Wurzelverzeichnis. Ein
+`git push` genügt, um Änderungen live zu bringen — der Build dauert etwa
+20 Sekunden.
+
+```bash
+git add -A && git commit -m "..." && git push
+```
+
+**Sie steht bewusst auf `noindex`.** Solange die Kontaktdaten Platzhalter
+sind, soll sie nicht in der Google-Suche auftauchen: eine nicht beauftragte
+Seite, die unter dem Namen eines echten Betriebs rankt, schickt Gäste ins
+Leere. Über den Link ist sie normal erreichbar und lässt sich herzeigen.
+Zum echten Livegang beides entfernen — das `<meta name="robots">` in
+`index.html` und die `Disallow`-Zeile in `robots.txt`.
+
+Eine eigene Domain lässt sich später ohne Umzug davorhängen: eine Datei
+`CNAME` mit der Domain ins Repo, beim Anbieter einen `CNAME`-Eintrag auf
+`laurenzcopywriting-stack.github.io` setzen.
 
 ## Warum ohne Framework
 
