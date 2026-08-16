@@ -13,12 +13,13 @@
     <!--
       ENTWURFSFASSUNG — nicht indexieren.
 
-      Die Seite ist öffentlich erreichbar, damit man sie herzeigen kann. Sie
-      soll aber nicht in der Google-Suche auftauchen, solange die Adresse ein
-      Platzhalter ist und das Impressum fehlt — eine Seite, die unter dem
-      Namen eines echten Betriebs rankt, muss stimmen.
+      Adresse und Telefon stimmen jetzt. Was noch fehlt, ist das Impressum:
+      Inhabername und die Angaben nach § 5 DDG. Eine gewerbliche Seite ohne
+      vollständiges Impressum in den Index zu lassen, ist die klassische
+      Abmahnfalle — deshalb bleibt die Sperre bis dahin stehen.
 
-      Vor dem echten Livegang: diese Zeile löschen (und robots.txt anpassen).
+      Zum Freischalten: diese Zeile löschen UND die Disallow-Zeile in
+      robots.txt entfernen. Beides, sonst wirkt die Sperre weiter.
     -->
     <meta name="robots" content="noindex, nofollow" />
 
@@ -30,7 +31,13 @@
       property="og:description"
       content="Fränkischer Mittagstisch, Biergarten unter alter Eiche, Leikeim vom Fass."
     />
-    <meta property="og:image" content="bilder/eiche-tag.jpg" />
+    <!-- Absolut, nicht relativ: WhatsApp und Facebook holen das Bild von
+         ihren eigenen Servern und können einen relativen Pfad nicht auflösen. -->
+    <meta
+      property="og:image"
+      content="https://laurenzcopywriting-stack.github.io/gasthaus-brueckner/bilder/eiche-tag.jpg"
+    />
+    <meta property="og:url" content="https://laurenzcopywriting-stack.github.io/gasthaus-brueckner/" />
     <meta property="og:locale" content="de_DE" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,9 +52,13 @@
       Strukturierte Daten für Google. Damit erscheinen Öffnungszeiten und
       Telefonnummer direkt im Suchergebnis, statt dass jemand erst die Seite
       öffnen muss.
-      Telefon steht. ACHTUNG: die Adresse ist noch Platzhalter — Google prüft
-      Name, Adresse und Telefon gegeneinander, eine falsche Adresse schadet
-      hier mehr als gar keine.
+      Name, Adresse und Telefon stimmen jetzt mit dem Google-Eintrag überein —
+      genau darauf prüft Google. Die Koordinaten stammen aus dem
+      Google-Maps-Eintrag des Hauses.
+
+      Bewusst NICHT enthalten: aggregateRating. Bewertungen, die auf einer
+      fremden Plattform liegen, dürfen im eigenen Markup nicht ausgezeichnet
+      werden — die Sterne zeigt Google ohnehin aus dem eigenen Eintrag.
     -->
     <script type="application/ld+json">
       {
@@ -59,11 +70,18 @@
         "telephone": "+49-9574-653482",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Straße und Hausnummer",
-          "postalCode": "PLZ",
-          "addressLocality": "Ort",
+          "streetAddress": "Burg 2",
+          "postalCode": "96272",
+          "addressLocality": "Hochstadt am Main-Obersdorf",
           "addressCountry": "DE"
         },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 50.1339765,
+          "longitude": 11.156229
+        },
+        "hasMap": "https://www.google.com/maps/search/?api=1&query=Gasthaus+Br%C3%BCckner+Burg+2+96272+Hochstadt+am+Main",
+        "paymentAccepted": "Bargeld",
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
@@ -186,9 +204,9 @@
 
           <div class="info">
             <h2 class="info__titel">So finden Sie uns</h2>
-            <p class="info__gross">Straße und Hausnummer</p>
+            <p class="info__gross">Burg 2</p>
             <p class="info__klein">
-              PLZ Ort<br />
+              96272 Hochstadt am Main-Obersdorf<br />
               Parkplätze direkt am Haus.
             </p>
           </div>
@@ -602,12 +620,12 @@
             <h3>Anfahrt</h3>
             <address>
               Gasthaus Brückner<br />
-              Straße und Hausnummer<br />
-              PLZ Ort
+              Burg 2<br />
+              96272 Hochstadt am Main-Obersdorf
             </address>
             <a
               class="knopf knopf--rand-hell"
-              href="https://www.google.com/maps/search/?api=1&amp;query=50.1339765%2C11.156229"
+              href="https://www.google.com/maps/search/?api=1&amp;query=Gasthaus+Br%C3%BCckner%2C+Burg+2%2C+96272+Hochstadt+am+Main"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -640,7 +658,7 @@
               Karte laden
             </button>
             <p class="karte-block__klein">
-              Lieber nicht? <a href="https://www.google.com/maps/search/?api=1&amp;query=50.1339765%2C11.156229" target="_blank" rel="noopener noreferrer">Direkt in Google Maps öffnen</a>
+              Lieber nicht? <a href="https://www.google.com/maps/search/?api=1&amp;query=Gasthaus+Br%C3%BCckner%2C+Burg+2%2C+96272+Hochstadt+am+Main" target="_blank" rel="noopener noreferrer">Direkt in Google Maps öffnen</a>
             </p>
           </div>
         </div>

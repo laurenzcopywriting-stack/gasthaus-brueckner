@@ -21,12 +21,15 @@ Die Seite liegt auf GitHub Pages, Zweig `main`, Wurzelverzeichnis. Ein
 git add -A && git commit -m "..." && git push
 ```
 
-**Sie steht bewusst auf `noindex`.** Solange die Kontaktdaten Platzhalter
-sind, soll sie nicht in der Google-Suche auftauchen: eine nicht beauftragte
-Seite, die unter dem Namen eines echten Betriebs rankt, schickt Gäste ins
-Leere. Über den Link ist sie normal erreichbar und lässt sich herzeigen.
-Zum echten Livegang beides entfernen — das `<meta name="robots">` in
-`index.html` und die `Disallow`-Zeile in `robots.txt`.
+**Sie steht bewusst auf `noindex`.** Über den Link ist sie normal erreichbar
+und lässt sich herzeigen — sie taucht nur nicht in der Google-Suche auf.
+
+Der einzige verbliebene Grund dafür ist das **fehlende Impressum**. Eine
+gewerbliche Seite ohne vollständige Angaben nach § 5 DDG in den Index zu
+lassen, ist die klassische Abmahnfalle. Sobald in `impressum.html` der
+Inhabername steht, sind es zwei Handgriffe: das `<meta name="robots">` in
+`index.html` löschen **und** die `Disallow`-Zeile in `robots.txt` entfernen.
+Beides — eines allein reicht nicht.
 
 Eine eigene Domain lässt sich später ohne Umzug davorhängen: eine Datei
 `CNAME` mit der Domain ins Repo, beim Anbieter einen `CNAME`-Eintrag auf
@@ -133,11 +136,11 @@ Daumen ist.
 
 ## Vor dem Livegang
 
-1. ~~Telefonnummer~~ — steht: **09574 653482**, an allen elf Stellen
-   inklusive `tel:`-Fassung (`+499574653482`) und strukturierten Daten.
-   **Adresse, E-Mail und Facebook fehlen noch.** Suchen nach
-   `Straße und Hausnummer` und `post@gasthaus-brueckner.de` findet alle
-   Stellen in `index.html`, `impressum.html` und `datenschutz.html`.
+1. ~~Telefonnummer~~ — steht: **09574 653482**.
+   ~~Adresse~~ — steht: **Burg 2, 96272 Hochstadt am Main-Obersdorf**,
+   samt Koordinaten (50.1339765, 11.156229) in Karte und strukturierten Daten.
+   **Offen: E-Mail-Adresse und der Facebook-Link.** Suchen nach
+   `post@gasthaus-brueckner.de` und `facebook.com/` findet die Stellen.
 2. **Öffnungszeiten prüfen** — sie sind geraten. Sie stehen in `index.html`
    (Schnellinfo, Tabelle, JSON-LD) und in `script.js` (`ZEITEN`).
 3. **Impressum ausfüllen.** Für eine gewerbliche Seite ist es Pflicht (§ 5
