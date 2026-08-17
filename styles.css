@@ -973,37 +973,6 @@ figcaption {
   margin-top: 0.75rem;
 }
 
-/* ---------- Banner ---------- */
-
-.banner {
-  background: var(--messing);
-  color: #21170a;
-}
-
-.banner__innen {
-  max-width: var(--breite);
-  margin: 0 auto;
-  padding: clamp(2.5rem, 7vw, 4.5rem) var(--rand);
-  max-width: 52rem;
-}
-
-.banner__marke {
-  margin: 0 0 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.banner h2 {
-  max-width: 20ch;
-  margin-bottom: 1rem;
-}
-
-.banner__klein {
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
 
 /* ---------- Galerie ---------- */
 
