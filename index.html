@@ -6,7 +6,7 @@
     <title>Gasthaus Brückner — Wirtshaus & Biergarten</title>
     <meta
       name="description"
-      content="Fränkisches Wirtshaus mit Biergarten unter alter Eiche. Täglich wechselnder Mittagstisch, Braten aus dem Rohr, Leikeim vom Fass. Mittwoch bis Sonntag geöffnet."
+      content="Fränkische Spezialitäten und Biergarten unter alter Eiche in Hochstadt am Main-Obersdorf. Freitag bis Montag geöffnet, sonntags schon ab 11 Uhr. Feiern bis 100 Personen in der Dunkelhüttn."
     />
     <meta name="theme-color" content="#34462f" />
 
@@ -29,7 +29,7 @@
     <meta property="og:title" content="Gasthaus Brückner — Wirtshaus & Biergarten" />
     <meta
       property="og:description"
-      content="Fränkischer Mittagstisch, Biergarten unter alter Eiche, Leikeim vom Fass."
+      content="Fränkische Spezialitäten, Biergarten unter alter Eiche, Leikeim vom Fass. Feiern bis 100 Personen."
     />
     <!-- Absolut, nicht relativ: WhatsApp und Facebook holen das Bild von
          ihren eigenen Servern und können einen relativen Pfad nicht auflösen. -->
@@ -85,16 +85,20 @@
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Wednesday", "Thursday", "Friday", "Saturday"],
-            "opens": "11:30",
-            "closes": "23:00"
+            "dayOfWeek": ["Friday", "Saturday", "Monday"],
+            "opens": "16:00",
+            "closes": "21:00"
           },
           {
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": "Sunday",
-            "opens": "11:30",
-            "closes": "20:00"
+            "opens": "11:00",
+            "closes": "21:00"
           }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/gasthausbrueckner",
+          "https://www.instagram.com/gasthausbrueckner"
         ]
       }
     </script>
@@ -110,9 +114,25 @@
 
     <header class="kopf" id="kopf">
       <div class="kopf__innen">
+        <!--
+          Logo-Platz. Sobald `bilder/logo.png` (oder .svg) da ist, erscheint
+          das Zeichen automatisch — bis dahin bleibt das <img> ohne Datei
+          unsichtbar (onerror blendet es aus) und die Wortmarke daneben trägt
+          allein. So bricht nichts, egal ob die Datei existiert.
+        -->
         <a class="marke" href="#oben">
-          <span class="marke__name">Gasthaus Brückner</span>
-          <span class="marke__zusatz">Wirtshaus &amp; Biergarten</span>
+          <img
+            class="marke__zeichen"
+            src="bilder/logo.png"
+            alt=""
+            width="44"
+            height="44"
+            onerror="this.remove()"
+          />
+          <span class="marke__text">
+            <span class="marke__name">Gasthaus <em>Brückner</em></span>
+            <span class="marke__zusatz">Wirtshaus &amp; Biergarten</span>
+          </span>
         </a>
 
         <button
@@ -126,7 +146,7 @@
         </button>
 
         <nav class="nav" id="hauptnav" aria-label="Hauptnavigation">
-          <a href="#mittagstisch">Mittagstisch</a>
+          <a href="#speisekarte">Speisekarte</a>
           <a href="#biergarten">Biergarten</a>
           <a href="#bilder">Bilder</a>
           <a href="#kontakt">Kontakt</a>
@@ -154,8 +174,8 @@
           <p class="buehne__ort" data-auf>Fränkisches Wirtshaus</p>
           <h1 data-worte>Biergarten unter der alten Eiche.</h1>
           <p class="buehne__text" data-auf>
-            Täglich wechselnder Mittagstisch, Braten aus dem Rohr und Leikeim vom
-            Fass. Im Sommer sitzt man draußen, bis es dunkel wird.
+            Fränkische Spezialitäten, Leikeim vom Fass und ein Biergarten, in
+            dem man im Sommer sitzt, bis es dunkel wird.
           </p>
 
           <p class="status" id="status" data-auf hidden>
@@ -171,8 +191,8 @@
                 <strong class="knopf__nummer">09574 653482</strong>
               </span>
             </a>
-            <a class="knopf knopf--rand knopf--gross" href="#mittagstisch">
-              Mittagstisch ansehen
+            <a class="knopf knopf--rand knopf--gross" href="#speisekarte">
+              Speisekarte ansehen
             </a>
           </div>
         </div>
@@ -183,11 +203,11 @@
         <div class="infos__raster" data-staffel="110">
           <div class="info">
             <h2 class="info__titel">Geöffnet</h2>
-            <p class="info__gross">Mi – So</p>
+            <p class="info__gross">Fr – Mo</p>
             <p class="info__klein">
-              Mi – Sa 11:30 – 23:00 Uhr<br />
-              So 11:30 – 20:00 Uhr<br />
-              Montag &amp; Dienstag Ruhetag
+              Fr, Sa, Mo ab 16:00 – 21:00 Uhr<br />
+              So ab 11:00 – 21:00 Uhr<br />
+              <strong>Di, Mi, Do Ruhetag</strong>
             </p>
           </div>
 
@@ -249,7 +269,7 @@
             <ul class="merkmale">
               <li>Biergarten auf zwei Ebenen, überdachte Plätze</li>
               <li>Leikeim vom Fass, Merkendorfer Lagerbier zum Mitnehmen</li>
-              <li>Saal für Gesellschaften und Feiern nach Absprache</li>
+              <li>Die Dunkelhüttn für Feiern bis 100 Personen</li>
               <li>Familien willkommen — im Biergarten ist Platz</li>
             </ul>
           </div>
@@ -269,15 +289,14 @@
         </div>
       </section>
 
-      <!-- ---------- Mittagstisch ---------- -->
-      <section class="abschnitt abschnitt--hell" id="mittagstisch">
+      <!-- ---------- Speisekarte ---------- -->
+      <section class="abschnitt abschnitt--hell" id="speisekarte">
         <div class="abschnitt__kopf">
-          <p class="kicker" data-auf>Mittagstisch</p>
-          <h2 data-worte>Zehn Gerichte, jeden Tag neu.</h2>
+          <p class="kicker" data-auf>Speisekarte</p>
+          <h2 data-worte>Frängischa Spezialidäden.</h2>
           <p class="abschnitt__vorspann" data-auf>
-            Auf dem Aushang steht das Datum, darunter die Gerichte des Tages.
-            Braten stehen stundenlang im Rohr — nichts davon kommt schnell auf
-            den Teller.
+            So stehen sie auf der Karte im Haus — und so lassen wir sie auch
+            hier stehen. Dazu Leikeim vom Fass.
           </p>
         </div>
 
@@ -291,124 +310,221 @@
           <div class="passage__buehne">
             <div class="passage__spur">
               <article class="gang">
-                <p class="gang__marke">Zum Anfangen</p>
-                <h3>Suppe</h3>
+                <p class="gang__marke">Unnera Subbm</p>
+                <h3>Suppen</h3>
                 <ul class="speisen">
                   <li class="speise">
                     <span class="speise__text">
                       <span class="speise__name">Leberknödelsuppe</span>
                     </span>
-                    <span class="speise__preis">3,50 €</span>
+                    <span class="speise__preis">4,80&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Gulaschsuppe</span>
+                    </span>
+                    <span class="speise__preis">5,80&nbsp;€</span>
                   </li>
                 </ul>
               </article>
 
               <article class="gang gang--breit">
-                <p class="gang__marke">Aus dem Rohr</p>
-                <h3>Braten</h3>
+                <p class="gang__marke">Unnera Glassigä</p>
+                <h3>Die Klassiker</h3>
                 <ul class="speisen">
                   <li class="speise">
                     <span class="speise__text">
-                      <span class="speise__name">Wildschweinbraten</span>
-                      <span class="speise__dazu">mit Klößen, Preiselbeeren und Rotkohl</span>
+                      <span class="speise__name">Kotelett mit Fettrand</span>
+                      <span class="speise__dazu">dazu Kartoffelsalat und gem. Salat</span>
                     </span>
-                    <span class="speise__preis">13,80 €</span>
-                  </li>
-                  <li class="speise">
-                    <span class="speise__text">
-                      <span class="speise__name">Kalbsrahmbraten</span>
-                      <span class="speise__dazu">mit Klößen und frischem Wirsing</span>
-                    </span>
-                    <span class="speise__preis">12,20 €</span>
-                  </li>
-                  <li class="speise">
-                    <span class="speise__text">
-                      <span class="speise__name">Sauerbraten</span>
-                      <span class="speise__dazu">mit Klößen und Rotkohl</span>
-                    </span>
-                    <span class="speise__preis">11,20 €</span>
-                  </li>
-                  <li class="speise">
-                    <span class="speise__text">
-                      <span class="speise__name">Spießbraten</span>
-                      <span class="speise__dazu">mit Klößen und Salat</span>
-                    </span>
-                    <span class="speise__preis">10,20 €</span>
-                  </li>
-                </ul>
-              </article>
-
-              <!-- Die Spezialität bekommt eine eigene Karte mit Bild: sie ist
-                   der Grund, warum Leute herfahren, und ginge in einer Liste
-                   unter. -->
-              <article class="gang gang--bild">
-                <figure class="gang__figur">
-                  <img
-                    src="bilder/haustaeubchen.jpg"
-                    alt="Haustäubchen mit zwei Klößen, Soße und Wirsing"
-                    loading="lazy"
-                    decoding="async"
-                    width="960"
-                    height="720"
-                  />
-                </figure>
-                <p class="gang__marke">Die Spezialität</p>
-                <h3>Haustäubchen</h3>
-                <p class="gang__text">
-                  Mit Klößen und frischem Wirsing. Das teuerste Gericht der Karte —
-                  und das, wegen dem Leute herfahren.
-                </p>
-                <p class="gang__preis">15,20 €</p>
-              </article>
-
-              <article class="gang gang--breit">
-                <p class="gang__marke">Aus der Pfanne</p>
-                <h3>Schnitzel &amp; Fisch</h3>
-                <ul class="speisen">
-                  <li class="speise">
-                    <span class="speise__text">
-                      <span class="speise__name">Seelachsfilet „gebacken“</span>
-                      <span class="speise__dazu">mit Kartoffelsalat, Remoulade und gem. Salat</span>
-                    </span>
-                    <span class="speise__preis">11,20 €</span>
-                  </li>
-                  <li class="speise">
-                    <span class="speise__text">
-                      <span class="speise__name">Cordon Bleu</span>
-                      <span class="speise__dazu">mit Pommes oder Kartoffelsalat und gem. Salat</span>
-                    </span>
-                    <span class="speise__preis">10,80 €</span>
+                    <span class="speise__preis">13,80&nbsp;€</span>
                   </li>
                   <li class="speise">
                     <span class="speise__text">
                       <span class="speise__name">Schnitzel „Wiener Art“</span>
-                      <span class="speise__dazu">mit Pommes oder Kartoffelsalat und gem. Salat</span>
+                      <span class="speise__dazu">mit Pommes o. Kartoffelsalat und gem. Salat</span>
                     </span>
-                    <span class="speise__preis">9,80 €</span>
+                    <span class="speise__preis">13,50&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Cordon Bleu</span>
+                      <span class="speise__dazu">mit Pommes o. Kartoffelsalat und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">14,80&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Jägerschnitzel</span>
+                      <span class="speise__dazu">mit Pommes o. Rösti und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">14,80&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Schinkenröllchen mit Spargel</span>
+                      <span class="speise__dazu">dazu Pommes o. Kartoffelsalat und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">13,80&nbsp;€</span>
+                  </li>
+                </ul>
+              </article>
+
+              <article class="gang gang--breit">
+                <p class="gang__marke">Unnera Glassigä</p>
+                <h3>Vom Grill &amp; aus der Pfanne</h3>
+                <ul class="speisen">
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Schweinemedaillions</span>
+                      <span class="speise__dazu">in Pfefferrahmsoße mit Kroketten und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">16,80&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Schweinelachssteak</span>
+                      <span class="speise__dazu">mit Kräuterbutter, Bratkartoffeln und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">14,50&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Rumpsteak 280&nbsp;g</span>
+                      <span class="speise__dazu">mit Kräuterbutter, Pommes und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">22,50&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Cordon Bleu „natur“</span>
+                      <span class="speise__dazu">mit Pfannenzwiebeln, Champignons, Kräuterbutter, Pommes und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">15,20&nbsp;€</span>
+                  </li>
+                </ul>
+              </article>
+
+              <article class="gang">
+                <p class="gang__marke">A weng an Fiesch</p>
+                <h3>Fisch</h3>
+                <ul class="speisen">
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Seelachs „gebacken“</span>
+                      <span class="speise__dazu">mit Kartoffelsalat, Remoulade und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">17,80&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Zanderfilet „mehliert“</span>
+                      <span class="speise__dazu">mit Salzkartoffeln, Sahnemeerrettich und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">18,50&nbsp;€</span>
+                  </li>
+                </ul>
+              </article>
+
+              <article class="gang gang--breit">
+                <p class="gang__marke">Fürn glann Hunger</p>
+                <h3>Kleinigkeiten</h3>
+                <ul class="speisen">
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Currywurst</span>
+                      <span class="speise__dazu">mit Pommes</span>
+                    </span>
+                    <span class="speise__preis">10,50&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Kinderschnitzel</span>
+                      <span class="speise__dazu">mit Pommes</span>
+                    </span>
+                    <span class="speise__preis">8,20&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Gebackener Camembert</span>
+                      <span class="speise__dazu">mit Kartoffelsalat, Preiselbeeren, Toast und gem. Salat</span>
+                    </span>
+                    <span class="speise__preis">10,80&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Hausgemachte Sülze</span>
+                      <span class="speise__dazu">mit Musik und Bratkartoffeln</span>
+                    </span>
+                    <span class="speise__preis">11,00&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Jäger Toast</span>
+                      <span class="speise__dazu">mit gekochtem Schinken, Champignons, Zwiebeln und Käse überbacken</span>
+                    </span>
+                    <span class="speise__preis">10,50&nbsp;€</span>
                   </li>
                 </ul>
               </article>
 
               <article class="gang">
                 <p class="gang__marke">Zum Schluss</p>
-                <h3>Nachspeise</h3>
+                <h3>Dessert</h3>
                 <ul class="speisen">
                   <li class="speise">
                     <span class="speise__text">
-                      <span class="speise__name">Vanilleeis</span>
-                      <span class="speise__dazu">mit heißen Himbeeren und Sahne</span>
+                      <span class="speise__name">„Verdauerla“</span>
+                      <span class="speise__dazu">Eichenfass Willi</span>
                     </span>
-                    <span class="speise__preis">4,80 €</span>
+                    <span class="speise__preis">3,80&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Vanilleeis</span>
+                      <span class="speise__dazu">mit heißen Himbeeren</span>
+                    </span>
+                    <span class="speise__preis">5,00&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Dessert der Woche</span>
+                      <span class="speise__dazu">Sprich uns gerne an!</span>
+                    </span>
+                    <span class="speise__preis">5,00&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Espresso</span>
+                    </span>
+                    <span class="speise__preis">2,50&nbsp;€</span>
+                  </li>
+                  <li class="speise">
+                    <span class="speise__text">
+                      <span class="speise__name">Cappuccino</span>
+                    </span>
+                    <span class="speise__preis">2,80&nbsp;€</span>
                   </li>
                 </ul>
               </article>
 
-              <!-- Letzte Karte: hier hat man gerade Appetit. -->
+              <article class="gang gang--feier">
+                <p class="gang__marke">Dei nägsta Feier bei uns</p>
+                <h3>Die Dunkelhüttn</h3>
+                <p class="gang__text">
+                  Sprich uns an und wir planen Deine Feier: Sektempfang, Buffet
+                  oder à la carte, Vorspeisen und Desserts — bis zu 100 Personen.
+                </p>
+                <a class="knopf knopf--voll" href="tel:+499574653482">
+                  <span aria-hidden="true">✆</span> Anfragen
+                </a>
+              </article>
+
               <article class="gang gang--ruf">
                 <p class="gang__marke">Und jetzt?</p>
                 <h3>Tisch sichern.</h3>
                 <p class="gang__text">
-                  Sonn- und Feiertage sind schnell voll. Ein Anruf reicht.
+                  Sonntags und an Feiertagen ist es schnell voll. Ein Anruf reicht.
                 </p>
                 <a class="knopf knopf--voll" href="tel:+499574653482">
                   <span aria-hidden="true">✆</span> 09574 653482
@@ -418,22 +534,32 @@
           </div>
         </div>
 
+        <!-- Steht außerhalb der Spur: die Pflichtangabe soll nicht seitwärts
+             davonfahren, sondern nach der Passage lesbar sein. -->
         <div class="karte__fuss">
           <figure class="aushang" data-auf>
             <img
-              src="bilder/mittagstisch-aushang.jpg"
-              alt="Der Aushang mit dem Mittagstisch vom 31.07."
+              data-parallax="5"
+              src="bilder/haustaeubchen.jpg"
+              alt="Ein Teller mit Braten, Klößen und Gemüse"
               loading="lazy"
               decoding="async"
-              width="1039"
-              height="1500"
+              width="960"
+              height="720"
             />
-            <figcaption>Der Aushang am Eingang — hier steht, was heute gilt.</figcaption>
+            <figcaption>Fränkisch, mit Klößen, ohne Firlefanz.</figcaption>
           </figure>
 
           <div class="karte__hinweise">
-            <p><strong>Stand der Preise: 31.07.</strong> Der Mittagstisch wechselt täglich; maßgeblich ist der Aushang am Haus.</p>
-            <p>Angaben zu Zusatzstoffen und Allergenen erhalten Sie auf Nachfrage bei unserem Personal.</p>
+            <p>
+              <strong>Wir kochen frisch.</strong> Bei vollem Haus dauert es
+              deshalb manchmal etwas länger — das ist Absicht.
+            </p>
+            <p>
+              Informationen zu Allergenen und Zusatzstoffen erhältst Du bei
+              unserem Servicepersonal.
+            </p>
+            <p><strong>Wir nehmen nur Bargeld.</strong></p>
             <a class="knopf knopf--voll" href="tel:+499574653482">
               <span aria-hidden="true">✆</span> Tisch reservieren
             </a>
@@ -596,8 +722,15 @@
                 <strong class="knopf__nummer">09574 653482</strong>
               </span>
             </a>
+            <!-- Die E-Mail-Adresse des Hauses liegt noch nicht vor. Eine
+                 erfundene stünde hier schlimmer als gar keine: Anfragen
+                 gingen ins Nichts. Stattdessen die beiden Kanäle, die es
+                 nachweislich gibt. -->
             <p class="kontakt__zeile">
-              <a href="mailto:post@gasthaus-brueckner.de">post@gasthaus-brueckner.de</a>
+              Oder schreiben Sie uns bei
+              <a href="https://www.instagram.com/gasthausbrueckner" target="_blank" rel="noopener noreferrer">Instagram</a>
+              bzw.
+              <a href="https://www.facebook.com/gasthausbrueckner" target="_blank" rel="noopener noreferrer">Facebook</a>.
             </p>
           </div>
 
@@ -606,13 +739,13 @@
             <!-- data-tag: script.js hebt hiermit den heutigen Tag hervor,
                  ohne dass die Zeiten doppelt gepflegt werden müssen. -->
             <dl class="zeiten">
-              <div class="zeiten__zeile" data-tag="3"><dt>Mittwoch</dt><dd>11:30 – 23:00</dd></div>
-              <div class="zeiten__zeile" data-tag="4"><dt>Donnerstag</dt><dd>11:30 – 23:00</dd></div>
-              <div class="zeiten__zeile" data-tag="5"><dt>Freitag</dt><dd>11:30 – 23:00</dd></div>
-              <div class="zeiten__zeile" data-tag="6"><dt>Samstag</dt><dd>11:30 – 23:00</dd></div>
-              <div class="zeiten__zeile" data-tag="0"><dt>Sonntag</dt><dd>11:30 – 20:00</dd></div>
-              <div class="zeiten__zeile zeiten__zeile--zu" data-tag="1"><dt>Montag</dt><dd>Ruhetag</dd></div>
+              <div class="zeiten__zeile" data-tag="5"><dt>Freitag</dt><dd>ab 16:00 – 21:00</dd></div>
+              <div class="zeiten__zeile" data-tag="6"><dt>Samstag</dt><dd>ab 16:00 – 21:00</dd></div>
+              <div class="zeiten__zeile" data-tag="0"><dt>Sonntag</dt><dd>ab 11:00 – 21:00</dd></div>
+              <div class="zeiten__zeile" data-tag="1"><dt>Montag</dt><dd>ab 16:00 – 21:00</dd></div>
               <div class="zeiten__zeile zeiten__zeile--zu" data-tag="2"><dt>Dienstag</dt><dd>Ruhetag</dd></div>
+              <div class="zeiten__zeile zeiten__zeile--zu" data-tag="3"><dt>Mittwoch</dt><dd>Ruhetag</dd></div>
+              <div class="zeiten__zeile zeiten__zeile--zu" data-tag="4"><dt>Donnerstag</dt><dd>Ruhetag</dd></div>
             </dl>
           </div>
 
@@ -632,8 +765,12 @@
               In Google Maps öffnen
             </a>
             <p class="kontakt__zeile">
-              <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-                Bei Facebook
+              <a href="https://www.facebook.com/gasthausbrueckner" target="_blank" rel="noopener noreferrer">
+                Facebook
+              </a>
+              ·
+              <a href="https://www.instagram.com/gasthausbrueckner" target="_blank" rel="noopener noreferrer">
+                Instagram
               </a>
             </p>
           </div>
@@ -667,12 +804,27 @@
 
     <footer class="fuss">
       <div class="fuss__innen">
-        <p class="fuss__marke">Gasthaus Brückner</p>
+        <p class="fuss__marke">
+          <img
+            class="fuss__zeichen"
+            src="bilder/logo.png"
+            alt=""
+            width="40"
+            height="40"
+            loading="lazy"
+            onerror="this.remove()"
+          />
+          Gasthaus <em>Brückner</em>
+        </p>
         <nav class="fuss__nav" aria-label="Rechtliches">
           <a href="impressum.html">Impressum</a>
           <a href="datenschutz.html">Datenschutz</a>
+          <a href="https://www.instagram.com/gasthausbrueckner" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.facebook.com/gasthausbrueckner" target="_blank" rel="noopener noreferrer">Facebook</a>
         </nav>
-        <p class="fuss__klein">© <span id="jahr">2026</span> Gasthaus Brückner</p>
+        <p class="fuss__klein">
+          © <span id="jahr">2026</span> Gasthaus Brückner · Inhaber: Steffen &amp; Anja Brückner
+        </p>
       </div>
     </footer>
 

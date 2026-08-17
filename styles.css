@@ -11,6 +11,11 @@
 :root {
   --laub: #34462f;
   --laub-tief: #202b1c;
+  /* Aus dem Logo des Hauses: „Brückner" steht dort in einem Oliv-Grün.
+     --oliv ist die abgedunkelte Fassung für Text auf hellem Grund, die
+     Originalhelligkeit hätte auf Creme zu wenig Kontrast. */
+  --oliv: #6f8a1e;
+  --oliv-hell: #a8c23c;
   --messing: #a9702a;
   --messing-hell: #c98d3f;
   --papier: #faf6ee;
@@ -60,6 +65,10 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
   font-size: clamp(1rem, 0.97rem + 0.15vw, 1.09rem);
   line-height: 1.65;
+  /* Der blaue Kasten, den Android beim Antippen über Links legt, sieht auf
+     einer sonst ruhigen Seite nach Fehler aus. Ein warmer Hauch reicht als
+     Rückmeldung. */
+  -webkit-tap-highlight-color: rgba(169, 112, 42, 0.18);
 }
 
 img {
@@ -225,6 +234,10 @@ p {
   z-index: 50;
   background: rgba(250, 246, 238, 0.94);
   border-bottom: 1px solid var(--linie);
+  /* -webkit- zuerst: Safari auf dem iPhone kennt die Eigenschaft bis heute
+     nur mit Präfix. Ohne sie bliebe die Leiste dort halbdurchsichtig ohne
+     Unschärfe — der Text darunter scheint durch. */
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -240,15 +253,37 @@ p {
 }
 
 .marke {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   text-decoration: none;
   line-height: 1.2;
 }
 
+.marke__zeichen {
+  width: clamp(2.1rem, 5vw, 2.75rem);
+  height: auto;
+  flex: 0 0 auto;
+}
+
+.marke__text {
+  display: block;
+}
+
+/* Die Wortmarke nimmt die Zweifarbigkeit des Logos auf: „Gasthaus" im
+   dunklen Grün, „Brückner" im Oliv. Steht das echte Zeichen daneben,
+   passen beide zusammen; fehlt es, trägt die Schrift die Marke allein. */
 .marke__name {
   display: block;
   font-family: 'Bitter', Georgia, serif;
   font-weight: 600;
   font-size: 1.1rem;
+  color: var(--laub);
+}
+
+.marke__name em {
+  font-style: normal;
+  color: var(--oliv);
 }
 
 .marke__zusatz {
@@ -365,7 +400,12 @@ p {
 .buehne {
   position: relative;
   isolation: isolate;
+  /* vh als Rückfallebene, svh für alles Neuere.
+     Auf dem Handy zählt `vh` die Höhe OHNE die Adressleiste mit — beim
+     Scrollen fährt die Leiste ein, die Bühne wird plötzlich höher und das
+     Bild springt. `svh` rechnet mit der kleinen, stabilen Höhe. */
   min-height: min(84vh, 46rem);
+  min-height: min(84svh, 46rem);
   display: flex;
   align-items: flex-end;
   padding: clamp(3rem, 10vh, 7rem) var(--rand);
@@ -410,13 +450,35 @@ p {
   color: var(--papier);
 }
 
+/* Die Vorzeile lag als heller Text auf hellem Laub und ging unter. Statt sie
+   nur größer oder greller zu machen, bekommt sie einen eigenen Grund: ein
+   dunkles Schild, das den Bildhintergrund an dieser Stelle ersetzt. Damit ist
+   sie auf JEDEM Foto lesbar — auch wenn das Bild später getauscht wird. */
 .buehne__ort {
-  margin: 0 0 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 1rem;
+  padding: 0.42rem 0.9rem;
+  border-radius: var(--rund);
+  background: rgba(20, 27, 17, 0.72);
+  border: 1px solid rgba(201, 141, 63, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--messing-hell);
+  color: #f0d9b4;
+}
+
+/* Kleiner Strich davor — setzt die Zeile als Auszeichnung, nicht als Satz. */
+.buehne__ort::before {
+  content: '';
+  width: 1.4rem;
+  height: 2px;
+  background: var(--messing-hell);
+  flex: 0 0 auto;
 }
 
 .buehne h1 {
@@ -717,10 +779,42 @@ figcaption {
   width: clamp(18rem, 30vw, 27rem);
 }
 
-.gang--ruf {
+.gang--ruf,
+.gang--feier {
   justify-content: center;
   border-color: var(--messing);
   background: #fffaf1;
+}
+
+/* Die Feier-Karte ist ein Angebot, kein Gericht — sie darf breiter stehen. */
+.gang--feier {
+  width: clamp(17rem, 26vw, 24rem);
+  border-color: var(--laub);
+  background: var(--laub);
+  color: var(--papier);
+}
+
+.gang--feier .gang__marke {
+  color: var(--messing-hell);
+}
+
+.gang--feier h3 {
+  border-bottom-color: rgba(250, 246, 238, 0.25);
+}
+
+.gang--feier .gang__text {
+  color: rgba(250, 246, 238, 0.85);
+}
+
+.gang--feier .knopf--voll {
+  background: var(--papier);
+  border-color: var(--papier);
+  color: var(--laub-tief);
+}
+
+.gang--feier .knopf--voll:hover {
+  background: var(--messing-hell);
+  border-color: var(--messing-hell);
 }
 
 .gang--ruf .knopf {
@@ -840,6 +934,9 @@ figcaption {
   color: var(--messing);
   /* Hält die Preisspalte in einer Flucht. */
   font-variant-numeric: tabular-nums;
+  /* Ohne das kann auf schmalen Bildschirmen das Euro-Zeichen in die
+     nächste Zeile rutschen und der Preis steht zweizeilig da. */
+  white-space: nowrap;
 }
 
 .karte__fuss {
@@ -1021,6 +1118,10 @@ figcaption {
   gap: clamp(0.75rem, 2vw, 1.25rem);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  /* Ohne das löst ein Wisch am Ende der Bilderreihe die Zurück-Geste des
+     Browsers aus — man wollte das nächste Foto und landet auf der
+     vorherigen Seite. */
+  overscroll-behavior-x: contain;
   /* Damit der Fokusring der Knöpfe nicht abgeschnitten wird. */
   scroll-padding: 0.25rem;
   scrollbar-width: thin;
@@ -1247,9 +1348,27 @@ figcaption {
 }
 
 .fuss__marke {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   margin: 0;
   font-family: 'Bitter', Georgia, serif;
   color: var(--papier);
+}
+
+.fuss__marke em {
+  font-style: normal;
+  color: var(--oliv-hell);
+}
+
+.fuss__zeichen {
+  width: 2.25rem;
+  height: auto;
+  /* Das Logo ist für hellen Grund gezeichnet; im dunklen Fuß bekommt es
+     einen eigenen hellen Kreis, statt als dunkler Klecks zu verschwinden. */
+  background: var(--papier);
+  border-radius: 50%;
+  padding: 0.2rem;
 }
 
 .fuss__nav {
@@ -1289,6 +1408,44 @@ figcaption {
   border-radius: 2px;
 }
 
+/* ---------- Tippziele auf dem Handy ----------
+   Unter 54 rem wird mit dem Daumen bedient. Die Empfehlung sind 44 × 44 px;
+   ein 18 px hoher Textlink wird daneben getippt. Statt jeden Link größer zu
+   setzen, bekommen sie Luft — die Schriftgröße bleibt, die Trefferfläche
+   wächst. */
+
+@media (max-width: 54rem) {
+  .info__gross a,
+  .kontakt__zeile a,
+  .karte-block__klein a,
+  .fuss__nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* Der Fuß steht sonst als Block zusammengedrängt — mit den größeren
+     Zielen braucht er etwas mehr Raum zwischen den Zeilen. */
+  .fuss__nav {
+    gap: 1.75rem;
+  }
+
+  .nav-schalter {
+    min-height: 44px;
+    padding-inline: 1rem;
+  }
+
+  .marke {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 44px;
+  }
+
+  /* Die Pfeile der Slideshow sind ausgeblendet (siehe oben), die Bilder
+     selbst sind das Tippziel — die sind groß genug. */
+}
+
 /* ---------- Feste Rufleiste (nur schmal) ---------- */
 
 .rufleiste {
@@ -1303,6 +1460,7 @@ figcaption {
   padding-bottom: calc(0.7rem + env(safe-area-inset-bottom, 0px));
   background: rgba(250, 246, 238, 0.96);
   border-top: 1px solid var(--linie);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -1319,5 +1477,27 @@ figcaption {
   /* Platz, damit die Leiste den Fuß nicht überdeckt. */
   .fuss__innen {
     padding-bottom: 5.5rem;
+  }
+
+  /* Die Leiste fährt erst herein, wenn der Aufmacher durch ist — dort steht
+     der große Anrufknopf schon.
+
+     Sichtbar ist der Grundzustand, versteckt wird aktiv gesetzt. Das ist
+     Absicht: die Leiste trägt den wichtigsten Knopf der Seite. Läuft kein
+     JavaScript, oder löst der Beobachter aus irgendeinem Grund nie aus,
+     steht sie einfach dauerhaft da — statt für immer zu verschwinden.
+     Umgekehrt herum wäre jeder Ausfall ein Betrieb ohne Anrufknopf. */
+  .js-leiste .rufleiste {
+    transition: transform 0.28s ease;
+  }
+
+  .js-leiste .rufleiste--versteckt {
+    transform: translateY(110%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-leiste .rufleiste {
+    transition: none;
   }
 }

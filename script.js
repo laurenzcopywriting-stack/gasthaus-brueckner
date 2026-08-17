@@ -15,17 +15,21 @@
  * Die Öffnungszeiten, nach Wochentag (0 = Sonntag, wie Date.getDay()).
  * `null` heißt Ruhetag.
  *
- * ACHTUNG — PLATZHALTER: Diese Zeiten sind geraten. Vor dem Livegang hier,
- * in index.html (Tabelle, Schnellinfo und JSON-LD) ersetzen.
+ * Quelle: Visitenkarte des Hauses. Die drei Ruhetage liegen mitten in der
+ * Woche (Di/Mi/Do) — ungewöhnlich genug, dass es sich lohnt, sie überall
+ * deutlich zu zeigen.
+ *
+ * Wird hier etwas geändert, muss es auch in index.html an drei Stellen
+ * nachgezogen werden: Schnellinfo, Tabelle im Kontakt und JSON-LD.
  */
 const ZEITEN = {
-  0: { von: '11:30', bis: '20:00' }, // Sonntag
-  1: null, // Montag — Ruhetag
+  0: { von: '11:00', bis: '21:00' }, // Sonntag
+  1: { von: '16:00', bis: '21:00' }, // Montag
   2: null, // Dienstag — Ruhetag
-  3: { von: '11:30', bis: '23:00' },
-  4: { von: '11:30', bis: '23:00' },
-  5: { von: '11:30', bis: '23:00' },
-  6: { von: '11:30', bis: '23:00' },
+  3: null, // Mittwoch — Ruhetag
+  4: null, // Donnerstag — Ruhetag
+  5: { von: '16:00', bis: '21:00' }, // Freitag
+  6: { von: '16:00', bis: '21:00' }, // Samstag
 }
 
 const TAGE = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
@@ -230,6 +234,41 @@ function karte() {
   })
 }
 
+/**
+ * 7. Die feste Rufleiste erst zeigen, wenn der Aufmacher durch ist.
+ *
+ * Auf einem kleinen Handy nehmen Kopfzeile und Leiste zusammen über ein
+ * Viertel des Bildschirms weg. Solange der große Anrufknopf im Aufmacher
+ * sichtbar ist, ist die Leiste doppelt gemoppelt — sie kostet nur Platz.
+ *
+ * Die Leiste wird VERSTECKT, nicht eingeblendet — sichtbar ist der
+ * Grundzustand. Ohne IntersectionObserver, ohne JavaScript oder wenn der
+ * Beobachter nie auslöst, bleibt sie damit einfach dauerhaft stehen. Lieber
+ * eine Leiste zu viel als ein Betrieb ohne Anrufknopf.
+ */
+function rufleiste() {
+  const leiste = document.querySelector('.rufleiste')
+  const buehne = document.querySelector('.buehne')
+  if (!leiste || !buehne || !('IntersectionObserver' in window)) return
+
+  // Erst jetzt darf das CSS die Leiste überhaupt verstecken — ab hier ist
+  // sichergestellt, dass sie auch wieder hereingefahren wird.
+  document.documentElement.classList.add('js-leiste')
+
+  const beobachter = new IntersectionObserver(
+    (eintraege) => {
+      eintraege.forEach((e) => {
+        leiste.classList.toggle('rufleiste--versteckt', e.isIntersecting)
+      })
+    },
+    // Erst umschalten, wenn der Aufmacher fast ganz draußen ist — sonst
+    // flackert die Leiste bei jedem kleinen Wischen.
+    { threshold: 0, rootMargin: '-70% 0px 0px 0px' }
+  )
+
+  beobachter.observe(buehne)
+}
+
 /** Jahreszahl im Fuß, damit sie nicht jedes Jahr veraltet. */
 function jahr() {
   const el = document.getElementById('jahr')
@@ -241,6 +280,7 @@ oeffnung()
 lupe()
 schau()
 karte()
+rufleiste()
 jahr()
 
 // Prüfhaken für die Entwicklung: erlaubt, den Öffnungsstatus für einen
