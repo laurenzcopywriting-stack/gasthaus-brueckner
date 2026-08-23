@@ -26,7 +26,11 @@
 
   --breite: 74rem;
   --rand: clamp(1.25rem, 5vw, 3.5rem);
+  /* Mindesthöhe der Kopfzeile aus dem Entwurf. */
   --kopfhoehe: 4.5rem;
+  /* Die tatsächlich gemessene Gesamthöhe inklusive Urlaubsband; script.js
+     schreibt sie. Der Startwert gilt, solange kein JavaScript läuft. */
+  --kopf-ist: 7rem;
 
   --rund: 3px;
   --schatten: 0 1px 2px rgba(31, 26, 20, 0.05), 0 8px 24px rgba(31, 26, 20, 0.06);
@@ -41,7 +45,7 @@
 html {
   scroll-behavior: smooth;
   /* Sprungziele landen sonst unter der festen Kopfzeile. */
-  scroll-padding-top: calc(var(--kopfhoehe) + 1rem);
+  scroll-padding-top: calc(var(--kopf-ist) + 1rem);
   -webkit-text-size-adjust: 100%;
 }
 
@@ -250,6 +254,50 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+
+/* ---------- Urlaubsband ----------
+   Ein schmaler Streifen am unteren Rand der Kopfzeile. Weil er Teil der
+   klebenden Kopfzeile ist, wandert er ohne eigene Klebe-Regel mit — zwei
+   getrennt klebende Elemente mit `top: 0` würden sich überlagern.
+
+   Bewusst kräftig gefärbt: der Streifen ist niedrig, er muss über die Farbe
+   auffallen, nicht über die Größe. */
+
+.urlaubsband {
+  background: var(--messing);
+  color: #21170a;
+  border-top: 1px solid rgba(33, 23, 10, 0.15);
+}
+
+.urlaubsband__text {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: 0.42rem var(--rand);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.35rem 0.8rem;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.urlaubsband__marke {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+/* Auf schmalen Bildschirmen ist die Zeile sonst dreizeilig. Das Datum und
+   das „geschlossen" müssen stehen bleiben, der Zusatz kann weg — er steht
+   weiter unten im Kontaktbereich noch einmal. */
+@media (max-width: 30rem) {
+  .urlaubsband__ab {
+    display: none;
+  }
 }
 
 .marke {
@@ -1207,6 +1255,17 @@ figcaption {
   font-style: normal;
   margin-bottom: 1.25rem;
   color: rgba(250, 246, 238, 0.85);
+}
+
+/* Wird zusammen mit dem Band aus der Kopfzeile entfernt, sobald der Urlaub
+   vorbei ist — siehe urlaubsband() in script.js. */
+.zeiten__urlaub {
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.9rem;
+  border-left: 3px solid var(--messing-hell);
+  background: rgba(250, 246, 238, 0.07);
+  font-size: 0.88rem;
+  color: rgba(250, 246, 238, 0.9);
 }
 
 .zeiten {

@@ -47,7 +47,41 @@ function inMinuten(uhrzeit) {
  * Uhr falsch oder sitzt jemand in einer anderen Zeitzone, stimmt die Anzeige
  * nicht. Deshalb ist sie eine Ergänzung und ersetzt die Tabelle nicht.
  */
+/**
+ * Der Betriebsurlaub, aus dem Band in der Kopfzeile gelesen.
+ *
+ * Bewusst NICHT hier im Skript hinterlegt: die Daten stehen im Markup, wo
+ * sie auch ohne JavaScript sichtbar sind. Zwei Quellen für dasselbe Datum
+ * laufen sonst früher oder später auseinander.
+ */
+function urlaubszeitraum() {
+  const band = document.querySelector('.urlaubsband[data-von][data-bis]')
+  if (!band) return null
+
+  // Ende auf 23:59:59 setzen — sonst gilt der letzte Urlaubstag ab 00:00
+  // schon als vorbei und die Seite meldet mitten im Urlaub „geöffnet".
+  const von = new Date(band.dataset.von + 'T00:00:00')
+  const bis = new Date(band.dataset.bis + 'T23:59:59')
+  if (isNaN(von) || isNaN(bis)) return null
+
+  return { von, bis }
+}
+
 function zustand(jetzt = new Date()) {
+  /* Der Urlaub schlägt jede Wochentagsregel. Ohne diese Abfrage würde die
+     Seite am Sonntag im Urlaub fröhlich „Jetzt geöffnet" melden und Gäste
+     umsonst herfahren lassen. */
+  const urlaub = urlaubszeitraum()
+  if (urlaub && jetzt >= urlaub.von && jetzt <= urlaub.bis) {
+    const zurueck = new Date(urlaub.bis.getTime() + 1000)
+    return {
+      offen: false,
+      text:
+        'Betriebsurlaub · wieder ab ' +
+        zurueck.toLocaleDateString('de-DE', { day: 'numeric', month: 'long' }),
+    }
+  }
+
   const heute = ZEITEN[jetzt.getDay()]
   const minutenJetzt = jetzt.getHours() * 60 + jetzt.getMinutes()
 
@@ -76,6 +110,57 @@ function zustand(jetzt = new Date()) {
   }
 
   return null
+}
+
+/**
+ * Das Urlaubsband: nach dem letzten Urlaubstag entfernen, und die Kopfhöhe
+ * neu vermessen.
+ *
+ * Warum die Messung: `scroll-padding-top` sorgt dafür, dass Sprungmarken
+ * nicht unter der klebenden Kopfzeile landen. Der Wert stand fest im CSS —
+ * mit dem zusätzlichen Band stimmt er nicht mehr, und je nach Schriftgröße
+ * und Fensterbreite sowieso nur ungefähr. Gemessen stimmt er immer.
+ */
+function urlaubsband() {
+  const band = document.querySelector('.urlaubsband')
+  const kopf = document.querySelector('.kopf')
+
+  if (band) {
+    const zeit = urlaubszeitraum()
+    if (zeit && new Date() > zeit.bis) {
+      band.remove()
+      // Der Hinweis im Kontaktbereich nennt dasselbe Datum und muss
+      // mitverschwinden, sonst widerspricht die Seite sich selbst.
+      document.querySelector('.zeiten__urlaub')?.remove()
+    }
+  }
+
+  if (!kopf) return
+
+  /* Schreibt in `--kopf-ist`, NICHT in `--kopfhoehe`.
+     `--kopfhoehe` ist die Mindesthöhe aus dem Entwurf und steuert
+     `.kopf__innen { min-height }`. Würde die Messung dorthin schreiben,
+     entstünde eine Rückkopplung: messen → Kopf wird höher → Observer meldet
+     → messen. Der Kopf wächst dann bei jedem Frame weiter. */
+  const messen = () => {
+    document.documentElement.style.setProperty(
+      '--kopf-ist',
+      kopf.getBoundingClientRect().height + 'px'
+    )
+  }
+
+  /* Einmal messen reicht nicht: die Kopfzeile wächst, nachdem die Schriften
+     geladen sind, sie schrumpft, wenn das Urlaubsband verfällt, und sie
+     ändert sich beim Umbruch auf schmalen Fenstern. Ein ResizeObserver
+     meldet jede dieser Änderungen — im Gegensatz zu einer Messung zum
+     Ladezeitpunkt, die genau einen Moment erwischt und danach falsch ist. */
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(messen).observe(kopf)
+  } else {
+    messen()
+    window.addEventListener('resize', messen)
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(messen)
+  }
 }
 
 /** 1. Menü auf schmalen Bildschirmen. */
@@ -275,6 +360,9 @@ function jahr() {
   if (el) el.textContent = String(new Date().getFullYear())
 }
 
+// Zuerst: das Band kann verschwinden, und danach stimmt die Kopfhöhe. Erst
+// dann hat die Öffnungsanzeige den richtigen Urlaubszeitraum vorliegen.
+urlaubsband()
 menue()
 oeffnung()
 lupe()

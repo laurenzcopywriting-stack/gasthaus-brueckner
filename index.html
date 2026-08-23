@@ -96,6 +96,15 @@
             "closes": "21:00"
           }
         ],
+        "specialOpeningHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "opens": "00:00",
+            "closes": "00:00",
+            "validFrom": "2026-08-24",
+            "validThrough": "2026-09-10"
+          }
+        ],
         "sameAs": [
           "https://www.facebook.com/gasthausbrueckner",
           "https://www.instagram.com/gasthausbrueckner"
@@ -154,6 +163,26 @@
             <span aria-hidden="true">✆</span> Reservieren
           </a>
         </nav>
+      </div>
+
+      <!--
+        ---------- Betriebsurlaub ----------
+
+        Sitzt INNERHALB der Kopfzeile, nicht darunter. Zwei getrennt klebende
+        Elemente mit `top: 0` würden sich beim Scrollen überlagern; als Teil
+        derselben klebenden Kopfzeile wandert das Band ohne Zutun mit.
+
+        `data-von` / `data-bis` liest script.js: Nach dem letzten Urlaubstag
+        entfernt sich das Band selbst — sonst hängt im Oktober noch das
+        Sommerschild an der Tür. Ohne JavaScript bleibt es stehen, das ist die
+        harmlosere Richtung zum Danebenliegen.
+      -->
+      <div class="urlaubsband" data-von="2026-08-24" data-bis="2026-09-10">
+        <p class="urlaubsband__text">
+          <span class="urlaubsband__marke">Betriebsurlaub</span>
+          <span><strong>24.8. – 10.9.</strong> geschlossen</span>
+          <span class="urlaubsband__ab">ab Fr, 11.9. wieder für Sie da</span>
+        </p>
       </div>
     </header>
 
@@ -718,6 +747,10 @@
 
           <div class="kontakt__block">
             <h3>Öffnungszeiten</h3>
+            <p class="zeiten__urlaub">
+              <strong>24.8. – 10.9. Betriebsurlaub.</strong> Ab Freitag,
+              11. September gelten wieder die Zeiten unten.
+            </p>
             <!-- data-tag: script.js hebt hiermit den heutigen Tag hervor,
                  ohne dass die Zeiten doppelt gepflegt werden müssen. -->
             <dl class="zeiten">
