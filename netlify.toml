@@ -1,0 +1,80 @@
+# Netlify-Konfiguration — Gasthaus Brückner
+#
+# Die Seite hat keinen Build-Schritt: die Dateien werden so ausgeliefert, wie
+# sie im Ordner liegen. Deshalb kein `command`, nur ein Veröffentlichungspfad.
+
+[build]
+  publish = "."
+  # `command` fehlt hier absichtlich und ist NICHT versehentlich vergessen:
+  # Netlify soll nichts installieren und nichts bauen. Ein leerer String
+  # würde als auszuführender Befehl gelesen; das Weglassen ist der
+  # dokumentierte Weg, gar nichts zu tun.
+
+# --- Kopfzeilen -------------------------------------------------------------
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Verhindert, dass der Browser Dateitypen errät. Ohne das kann eine
+    # falsch ausgelieferte Datei als Skript interpretiert werden.
+    X-Content-Type-Options = "nosniff"
+    # Beim Klick auf einen ausgehenden Link nur die Domain übertragen,
+    # nicht die genaue Seite.
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Die Seite braucht weder Kamera noch Mikrofon noch Standort.
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    # Fremdes Einbetten in einen Rahmen unterbinden (Clickjacking).
+    # SAMEORIGIN statt DENY, damit Netlifys eigene Vorschau funktioniert.
+    X-Frame-Options = "SAMEORIGIN"
+
+# Die Fotos ändern sich praktisch nie und tragen den Grossteil der Datenmenge.
+# Ein Jahr Zwischenspeicher spart jedem wiederkehrenden Gast das erneute Laden.
+# `immutable`: der Browser fragt nicht einmal nach, ob es etwas Neues gibt.
+[[headers]]
+  for = "/bilder/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML dagegen NICHT lange zwischenspeichern: sonst sieht ein Gast nach einer
+# Änderung tagelang die alte Speisekarte. `must-revalidate` lässt den Browser
+# bei jedem Aufruf kurz nachfragen — das ist ein winziger Umweg gegen ein
+# grosses Ärgernis.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# CSS und JS ändern sich selten, aber eben doch. Eine Stunde ist der
+# Mittelweg: schnell für den Gast, kurz genug für eine Korrektur am selben Tag.
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+# --- Umleitungen ------------------------------------------------------------
+
+# Häufige Vertipper und Adressen, die Gäste raten könnten.
+[[redirects]]
+  from = "/speisekarte"
+  to = "/#speisekarte"
+  status = 301
+
+[[redirects]]
+  from = "/kontakt"
+  to = "/#kontakt"
+  status = 301
+
+[[redirects]]
+  from = "/oeffnungszeiten"
+  to = "/#kontakt"
+  status = 301
