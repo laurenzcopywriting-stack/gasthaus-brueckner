@@ -1,7 +1,11 @@
-# Entwurfsfassung. Solange die Kontaktdaten Platzhalter sind, soll die Seite
-# nicht in Suchmaschinen auftauchen — sonst schickt sie Gäste ins Leere.
+# Die Seite darf gefunden werden: Name, Adresse, Telefon, E-Mail und
+# Impressum sind vollständig und stimmen mit dem Google-Eintrag überein.
 #
-# Vor dem echten Livegang: die Disallow-Zeile entfernen und das
-# noindex-Meta-Tag aus index.html löschen.
+# Ausgenommen bleiben die Rechtstexte. Sie tragen ihr eigenes noindex und
+# sollen nicht anstelle der Startseite im Suchergebnis auftauchen.
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /impressum.html
+Disallow: /datenschutz.html
+
+Sitemap: https://gasthaus-brueckner.netlify.app/sitemap.xml

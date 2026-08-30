@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Eine einzige Seite trägt den ganzen Inhalt; Impressum und Datenschutz
+  gehören bewusst nicht hinein, sie sollen nicht ranken.
+
+  Beim Umzug auf die eigene Domain hier die Adresse ändern — und in
+  robots.txt gleich mit.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://gasthaus-brueckner.netlify.app/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
